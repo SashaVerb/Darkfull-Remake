@@ -23,6 +23,12 @@
       "dependencies": {},
       "hash": "9b5989b98f668c7ef409b3c5a1d5192612703eb5"
     },
+    "com.kyrylokuzyk.primetween": {
+      "version": "file:../Assets/Plugins/PrimeTween/internal/com.kyrylokuzyk.primetween.tgz",
+      "depth": 0,
+      "source": "local-tarball",
+      "dependencies": {}
+    },
     "com.unity.ai.navigation": {
       "version": "2.0.10",
       "depth": 0,
