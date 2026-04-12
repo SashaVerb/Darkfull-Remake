@@ -1,5 +1,14 @@
 {
   "dependencies": {
+    "com.alexverb.uimanagement": {
+      "version": "https://github.com/SashaVerb/UIManagement.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.cysharp.unitask": "https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask"
+      },
+      "hash": "5e4c72f698ed760a0c675b7c1f8351c56b43e9d2"
+    },
     "com.cysharp.r3": {
       "version": "https://github.com/Cysharp/R3.git?path=src/R3.Unity/Assets/R3.Unity",
       "depth": 0,
