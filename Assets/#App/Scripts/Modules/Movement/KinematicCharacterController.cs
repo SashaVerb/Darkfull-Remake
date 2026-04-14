@@ -86,6 +86,8 @@ namespace KinematicCharacterController.Examples
         private Vector3 lastInnerNormal = Vector3.zero;
         private Vector3 lastOuterNormal = Vector3.zero;
 
+        public Vector3 Velocity => Motor.Velocity;
+        
         private void Awake()
         {
             // Handle initial state
