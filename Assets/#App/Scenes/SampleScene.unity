@@ -417,9 +417,6 @@ GameObject:
   - component: {fileID: 347676161}
   - component: {fileID: 347676160}
   - component: {fileID: 347676167}
-  - component: {fileID: 347676166}
-  - component: {fileID: 347676165}
-  - component: {fileID: 347676168}
   m_Layer: 2
   m_Name: Player
   m_TagString: Untagged
@@ -555,38 +552,6 @@ MonoBehaviour:
   Jump: {fileID: -2099379676528639254, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   Move: {fileID: -1680190386980627800, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   Character: {fileID: 347676161}
---- !u!114 &347676165
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 347676159}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c724f676310723c45ac5ef65e4f12cf8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BeamView
-  _segmentPrefab: {fileID: 5190019863042444426, guid: e21f2e2735f9ca445ab7b73b3305aa46, type: 3}
---- !u!114 &347676166
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 347676159}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc9feaad2ce98c54e98954c9f7def893, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BeamEmitter
-  maxDistance: 10
-  raycastMask:
-    serializedVersion: 2
-    m_Bits: 65
-  reflectableMask:
-    serializedVersion: 2
-    m_Bits: 1
 --- !u!114 &347676167
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -600,26 +565,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Features.PlayerLogic.BeamShooter
   _shootAction: {fileID: 1120369429361536294, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  _pathCreator: {fileID: 347676166}
-  _indicatorDetector: {fileID: 347676168}
-  _view: {fileID: 347676165}
-  _mouseFollower: {fileID: 1853327565}
---- !u!114 &347676168
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 347676159}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bbc1a60846f6d4b47925ed1de2976165, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::IndicatorDetector
-  _radius: 0.5
-  _layerMask:
-    serializedVersion: 2
-    m_Bits: 64
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -747,6 +692,58 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
+--- !u!1 &437068772
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 437068774}
+  - component: {fileID: 437068773}
+  m_Layer: 0
+  m_Name: Installer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &437068773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 437068772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a7c2dacd7524367b93a1e676cc3e9b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::_App.Scripts.Installers.GameSceneInstaller
+  parentReference:
+    TypeName: 
+  autoRun: 1
+  autoInjectGameObjects:
+  - {fileID: 347676159}
+  _beamConfig: {fileID: 11400000, guid: 558449ab01082ea41a96b35a8f5a2fc6, type: 2}
+  _beamParent: {fileID: 1081911357}
+  _target: {fileID: 1853327568}
+--- !u!4 &437068774
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 437068772}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.47126, y: 1.90094, z: 6.33137}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &490590262
 GameObject:
   m_ObjectHideFlags: 0
@@ -882,6 +879,37 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1081911356
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1081911357}
+  m_Layer: 0
+  m_Name: BeamContainer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1081911357
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1081911356}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.47126, y: 1.90094, z: 6.33137}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1620,3 +1648,5 @@ SceneRoots:
   - {fileID: 147181505}
   - {fileID: 1853327568}
   - {fileID: 347676163}
+  - {fileID: 437068774}
+  - {fileID: 1081911357}

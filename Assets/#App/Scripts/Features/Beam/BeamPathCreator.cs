@@ -1,33 +1,36 @@
 using System.Collections.Generic;
 using LayerMaskExtensions;
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Pool;
 
-public class BeamPathCreator : MonoBehaviour
+public class BeamPathCreator
 {
-    [SerializeField] float maxDistance = 100f;
-    [SerializeField] LayerMask raycastMask;
-    [SerializeField] LayerMask reflectableMask;
+    private readonly BeamConfig _config;
+
+    public BeamPathCreator(BeamConfig config)
+    {
+        _config = config;
+    }
 
     public List<Vector3> Emit(Vector3 startPoint, Vector3 direction)
     {
-        List<Vector3> points = ListPool<Vector3>.New();
+        List<Vector3> points = ListPool<Vector3>.Get();
         points.Add(startPoint);
 
         Vector3 currentOrigin = startPoint;
         Vector3 currentDirection = direction.normalized;
-        float distanceLeft = maxDistance;
+        float distanceLeft = _config.MaxDistance;
 
         while (distanceLeft > 0f)
         {
             Ray ray = new Ray(currentOrigin + currentDirection * 0.01f, currentDirection);
 
-            if (Physics.Raycast(ray, out RaycastHit hit, distanceLeft, raycastMask.value))
+            if (Physics.Raycast(ray, out RaycastHit hit, distanceLeft, _config.RaycastMask.value))
             {
                 points.Add(hit.point);
                 distanceLeft -= hit.distance;
 
-                if (!reflectableMask.Contains(hit.collider.gameObject))
+                if (!_config.ReflectableMask.Contains(hit.collider.gameObject))
                     break;
 
                 currentOrigin = hit.point;

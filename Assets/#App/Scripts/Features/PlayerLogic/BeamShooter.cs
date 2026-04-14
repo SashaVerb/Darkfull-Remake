@@ -1,19 +1,30 @@
-﻿using Modules.MouseFollower;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
+using VContainer;
 
 namespace Features.PlayerLogic
 {
     public class BeamShooter : MonoBehaviour
     {
         [SerializeField] private InputActionReference _shootAction;
-        [SerializeField] private BeamPathCreator _pathCreator;
-        [SerializeField] private IndicatorDetector _indicatorDetector;
-        [SerializeField] private BeamView _view;
-        [SerializeField] private MouseWorldFollower _mouseFollower;
-
+        
+        private Transform _target;
+        private BeamPathCreator _pathCreator;
+        private IndicatorDetector _indicatorDetector;
+        private BeamView _view;
+        
         private bool _isShooting;
 
+        [Inject]
+        private void Configure(BeamPathCreator pathCreator, IndicatorDetector indicatorDetector, 
+            BeamView view, Transform target)
+        {
+            _pathCreator = pathCreator;
+            _indicatorDetector = indicatorDetector;
+            _view = view;
+            _target = target;
+        }
+        
         private void OnEnable()
         {
             _shootAction.action.started += OnShootStarted;
@@ -32,7 +43,7 @@ namespace Features.PlayerLogic
             if (!_isShooting)
                 return;
 
-            Vector3 direction = _mouseFollower.transform.position - transform.position;
+            Vector3 direction = _target.position - transform.position;
 
             if (direction.sqrMagnitude < 0.001f)
                 return;

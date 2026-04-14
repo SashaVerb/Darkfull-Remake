@@ -1,16 +1,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BeamView : MonoBehaviour
+public class BeamView
 {
-    [SerializeField] private MeshFilter _segmentPrefab;
-
+    private readonly BeamConfig _config;
+    private readonly Transform _parent;
     private MonoPool<MeshFilter> _pool;
     private List<MeshFilter> _activeSegments = new();
 
-    private void Awake()
+    public BeamView(BeamConfig config, Transform parent)
     {
-        _pool = new MonoPool<MeshFilter>(_segmentPrefab, transform);
+        _config = config;
+        _parent = parent;
+        _pool = new MonoPool<MeshFilter>(_config.SegmentPrefab, _parent);
     }
 
     public void Display(IReadOnlyList<Vector3> points)

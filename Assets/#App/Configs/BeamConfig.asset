@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 346a73edc35eea548bda169eaaad92bd, type: 3}
+  m_Name: BeamConfig
+  m_EditorClassIdentifier: Assembly-CSharp::BeamConfig
+  _segmentPrefab: {fileID: 5190019863042444426, guid: e21f2e2735f9ca445ab7b73b3305aa46, type: 3}
+  _maxDistance: 10
+  _raycastMask:
+    serializedVersion: 2
+    m_Bits: 65
+  _reflectableMask:
+    serializedVersion: 2
+    m_Bits: 1
+  _indicatorDetectionRadius: 0.5
+  _indicatorLayerMask:
+    serializedVersion: 2
+    m_Bits: 64

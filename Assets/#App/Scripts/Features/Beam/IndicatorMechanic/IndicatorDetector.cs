@@ -1,14 +1,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IndicatorDetector : MonoBehaviour
+public class IndicatorDetector
 {
-    [SerializeField] private float _radius = 0.5f;
-    [SerializeField] private LayerMask _layerMask;
-
+    private readonly BeamConfig _config;
     private HashSet<IIndicator> _activeIndicators = new();
     private HashSet<IIndicator> _currentIndicators = new();
     private readonly Collider[] _overlapBuffer = new Collider[32];
+
+    public IndicatorDetector(BeamConfig config)
+    {
+        _config = config;
+    }
 
     public void Check(List<Vector3> points)
     {
@@ -16,7 +19,7 @@ public class IndicatorDetector : MonoBehaviour
 
         foreach (Vector3 point in points)
         {
-            int count = Physics.OverlapSphereNonAlloc(point, _radius, _overlapBuffer, _layerMask);
+            int count = Physics.OverlapSphereNonAlloc(point, _config.IndicatorDetectionRadius, _overlapBuffer, _config.IndicatorLayerMask);
 
             for (int i = 0; i < count; i++)
             {
