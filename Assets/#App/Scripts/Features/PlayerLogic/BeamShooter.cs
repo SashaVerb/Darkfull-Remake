@@ -8,13 +8,15 @@ namespace Features.PlayerLogic
     {
         [SerializeField] private InputActionReference _shootAction;
         
+        public bool IsShooting => _isShooting;
+        
         private Transform _target;
         private BeamPathCreator _pathCreator;
         private IndicatorDetector _indicatorDetector;
         private BeamView _view;
         
         private bool _isShooting;
-
+        
         [Inject]
         private void Configure(BeamPathCreator pathCreator, IndicatorDetector indicatorDetector, 
             BeamView view, Transform target)

@@ -15,12 +15,20 @@ namespace Modules.MouseFollower
         [SerializeField] private ProjectionPlane _projectionPlane;
         [SerializeField] private Transform _planePivot;
         [SerializeField] private Camera _camera;
+        [SerializeField] private bool _limitToCircle;
+        [SerializeField] private float _limitRadius;
 
         private void Update()
         {
             Vector3? worldPosition = GetMouseWorldPosition();
             if (worldPosition.HasValue)
                 transform.position = worldPosition.Value;
+
+            if (_limitToCircle)
+            {
+                Vector3 direction = (transform.position - _planePivot.position).normalized;
+                transform.position = _planePivot.position + direction * _limitRadius;
+            }
         }
 
         public Vector3? GetMouseWorldPosition()

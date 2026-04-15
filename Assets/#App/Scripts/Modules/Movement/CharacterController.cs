@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace KinematicCharacterController.Examples
@@ -37,10 +38,12 @@ namespace KinematicCharacterController.Examples
         TowardsGroundSlopeAndGravity,
     }
 
-    public class KinematicCharacterController : MonoBehaviour, ICharacterController
+    public class CharacterController : MonoBehaviour, ICharacterController
     {
+        public Action OnJump;
+        
         public KinematicCharacterMotor Motor;
-
+    
         [Header("Stable Movement")]
         public float MaxStableMoveSpeed = 10f;
         public float StableMovementSharpness = 15f;
@@ -87,7 +90,8 @@ namespace KinematicCharacterController.Examples
         private Vector3 lastOuterNormal = Vector3.zero;
 
         public Vector3 Velocity => Motor.Velocity;
-        
+        public bool IsGrounded => Motor.GroundingStatus.IsStableOnGround;
+
         private void Awake()
         {
             // Handle initial state
@@ -373,6 +377,8 @@ namespace KinematicCharacterController.Examples
                                 _jumpRequested = false;
                                 _jumpConsumed = true;
                                 _jumpedThisFrame = true;
+                                
+                                OnJump?.Invoke();
                             }
                         }
 
