@@ -1,26 +1,25 @@
 using System.Collections.Generic;
+using Features.Beam;
 using Modules.Interactable;
 using UnityEngine;
 
-public class IndicatorDetector
+public class BeamIndicatorSystem
 {
     private readonly BeamConfig _config;
+
     private HashSet<IInteractable> _activeIndicators = new();
+
     private HashSet<IInteractable> _currentIndicators = new();
+
     private readonly Collider[] _overlapBuffer = new Collider[32];
 
-    public IndicatorDetector(BeamConfig config)
-    {
-        _config = config;
-    }
-
-    public void Check(List<Vector3> points)
+    public void Check(in List<BeamPathPoint> points)
     {
         _currentIndicators.Clear();
 
-        foreach (Vector3 point in points)
+        foreach (BeamPathPoint point in points)
         {
-            int count = Physics.OverlapSphereNonAlloc(point, _config.IndicatorDetectionRadius, _overlapBuffer, _config.IndicatorLayerMask);
+            int count = Physics.OverlapSphereNonAlloc(point.Position, _config.IndicatorDetectionRadius, _overlapBuffer, _config.IndicatorLayerMask);
 
             for (int i = 0; i < count; i++)
             {
@@ -39,6 +38,11 @@ public class IndicatorDetector
         }
 
         (_activeIndicators, _currentIndicators) = (_currentIndicators, _activeIndicators);
+    }
+
+    public BeamIndicatorSystem(BeamConfig config)
+    {
+        _config = config;
     }
 
     public void Clear()

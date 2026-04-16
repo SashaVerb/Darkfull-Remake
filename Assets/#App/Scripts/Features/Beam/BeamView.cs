@@ -1,21 +1,23 @@
 using System.Collections.Generic;
+using Features.Beam;
+using Features.Beam.ColorSystem;
 using UnityEngine;
 
 public class BeamView
 {
     private readonly BeamConfig _config;
     private readonly Transform _parent;
-    private MonoPool<MeshFilter> _pool;
-    private List<MeshFilter> _activeSegments = new();
+    private readonly MonoPool<BeamSegmentView> _pool;
+    private List<BeamSegmentView> _activeSegments = new();
 
     public BeamView(BeamConfig config, Transform parent)
     {
         _config = config;
         _parent = parent;
-        _pool = new MonoPool<MeshFilter>(_config.SegmentPrefab, _parent);
+        _pool = new(_config.SegmentPrefab, _parent);
     }
 
-    public void Display(IReadOnlyList<Vector3> points)
+    public void Display(in List<BeamPathPoint> points, in List<BeamColor> colors)
     {
         int segmentCount = points.Count - 1;
 
@@ -27,7 +29,7 @@ public class BeamView
 
         for (int i = 0; i < segmentCount; i++)
         {
-            MeshFilter segment;
+            BeamSegmentView segment;
             if (i < _activeSegments.Count)
             {
                 segment = _activeSegments[i];
@@ -38,7 +40,8 @@ public class BeamView
                 _activeSegments.Add(segment);
             }
 
-            segment.SetTwoPoints(points[i], points[i + 1]);
+            segment.Mesh.SetTwoPoints(points[i].Position, points[i + 1].Position);
+            segment.Material = _config.GetMaterialForColor(colors[i]);
         }
     }
 

@@ -1,24 +1,55 @@
+using System;
+using System.Collections.Generic;
+using Features.Beam;
+using Features.Beam.ColorSystem;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "BeamConfig", menuName = "Configs/Beam Config")]
 public class BeamConfig : ScriptableObject
 {
     [Header("Beam Visual")]
-    [SerializeField] private MeshFilter _segmentPrefab;
+    [field: SerializeField] public BeamSegmentView SegmentPrefab { get; private set; }
     
     [Header("Beam Physics")]
-    [SerializeField] private float _maxDistance = 100f;
-    [SerializeField] private LayerMask _raycastMask;
-    [SerializeField] private LayerMask _reflectableMask;
+    [field: SerializeField] public float MaxDistance { get; private set; }
+    [field: SerializeField] public LayerMask RaycastMask { get; private set; }
+    [field: SerializeField] public LayerMask ReflectableMask { get; private set; }
     
     [Header("Indicator Detection")]
-    [SerializeField] private float _indicatorDetectionRadius = 0.5f;
-    [SerializeField] private LayerMask _indicatorLayerMask;
+    [field: SerializeField] public float IndicatorDetectionRadius { get; private set; }
+    [field: SerializeField] public LayerMask IndicatorLayerMask { get; private set; }
 
-    public MeshFilter SegmentPrefab => _segmentPrefab;
-    public float MaxDistance => _maxDistance;
-    public LayerMask RaycastMask => _raycastMask;
-    public LayerMask ReflectableMask => _reflectableMask;
-    public float IndicatorDetectionRadius => _indicatorDetectionRadius;
-    public LayerMask IndicatorLayerMask => _indicatorLayerMask;
+    [Header("Beam Color")]
+    public TagHandle ColorTag;
+    [field: SerializeField] private List<ColorMaterialBinding> ColorBindings { get; set; }
+    
+    public Material GetMaterialForColor(BeamColor color)
+    {
+        return ColorBindings.Find(x => x.Color == color).Material;
+    }
+
+    private void OnValidate()
+    {
+        if (ColorBindings == null)
+        {
+            ColorBindings = new List<ColorMaterialBinding>();
+            foreach (BeamColor color in Enum.GetValues(typeof(BeamColor)))
+            {
+                ColorBindings.Add(new ColorMaterialBinding(null, color));
+            }
+        }
+    }
+
+    [Serializable]
+    private struct ColorMaterialBinding
+    {
+        public Material Material;
+        public BeamColor Color;
+        
+        public ColorMaterialBinding(Material material, BeamColor color)
+        {
+            Material = material;
+            Color = color;
+        }
+    }
 }

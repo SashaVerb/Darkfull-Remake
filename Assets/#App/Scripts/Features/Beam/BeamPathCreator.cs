@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Features.Beam;
 using LayerMaskExtensions;
 using UnityEngine;
 using UnityEngine.Pool;
@@ -12,10 +13,12 @@ public class BeamPathCreator
         _config = config;
     }
 
-    public List<Vector3> Emit(Vector3 startPoint, Vector3 direction)
+    public void Emit(Vector3 startPoint, Vector3 direction, ref List<BeamPathPoint> points)
     {
-        List<Vector3> points = ListPool<Vector3>.Get();
-        points.Add(startPoint);
+        points ??= new List<BeamPathPoint>();
+        points.Clear();
+        
+        points.Add(new BeamPathPoint(startPoint));
 
         Vector3 currentOrigin = startPoint;
         Vector3 currentDirection = direction.normalized;
@@ -27,7 +30,7 @@ public class BeamPathCreator
 
             if (Physics.Raycast(ray, out RaycastHit hit, distanceLeft, _config.RaycastMask.value))
             {
-                points.Add(hit.point);
+                points.Add(new BeamPathPoint(hit.point, hit));
                 distanceLeft -= hit.distance;
 
                 if (!_config.ReflectableMask.Contains(hit.collider.gameObject))
@@ -38,11 +41,9 @@ public class BeamPathCreator
             }
             else
             {
-                points.Add(currentOrigin + currentDirection * distanceLeft);
+                points.Add(new BeamPathPoint(currentOrigin + currentDirection * distanceLeft));
                 break;
             }
         }
-
-        return points;
     }
 }

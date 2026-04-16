@@ -16,7 +16,7 @@ namespace _App.Scripts.Installers
             
             builder.Register<BeamPathCreator>(Lifetime.Singleton);
             builder.Register<BeamView>(Lifetime.Singleton).WithParameter(_beamParent);
-            builder.Register<IndicatorDetector>(Lifetime.Singleton);
+            builder.Register<BeamIndicatorSystem>(Lifetime.Singleton);
             
             builder.RegisterInstance(_target);
         }

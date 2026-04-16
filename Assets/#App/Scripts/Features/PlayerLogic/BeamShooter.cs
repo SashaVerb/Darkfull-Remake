@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+using System.Collections.Generic;
+using Features.Beam;
+using Features.Beam.ColorSystem;
+using UnityEngine;
 using UnityEngine.InputSystem;
 using VContainer;
 
@@ -6,25 +9,33 @@ namespace Features.PlayerLogic
 {
     public class BeamShooter : MonoBehaviour
     {
+        [SerializeField] private BeamColor _startColor;
         [SerializeField] private InputActionReference _shootAction;
         
         public bool IsShooting => _isShooting;
         
         private Transform _target;
         private BeamPathCreator _pathCreator;
-        private IndicatorDetector _indicatorDetector;
+        private BeamIndicatorSystem _beamIndicatorSystem;
+        private BeamColorSystem _beamColorSystem;
         private BeamView _view;
         
         private bool _isShooting;
+        private List<BeamPathPoint> points;
+        private List<BeamColor> pointsColor;
         
         [Inject]
-        private void Configure(BeamPathCreator pathCreator, IndicatorDetector indicatorDetector, 
-            BeamView view, Transform target)
+        private void Configure(BeamPathCreator pathCreator, BeamIndicatorSystem beamIndicatorSystem, 
+            BeamColorSystem beamColorSystem, BeamView view, Transform target)
         {
             _pathCreator = pathCreator;
-            _indicatorDetector = indicatorDetector;
+            _beamIndicatorSystem = beamIndicatorSystem;
+            _beamColorSystem = beamColorSystem;
             _view = view;
             _target = target;
+            
+            points = new List<BeamPathPoint>();
+            pointsColor = new List<BeamColor>();
         }
         
         private void OnEnable()
@@ -49,10 +60,13 @@ namespace Features.PlayerLogic
 
             if (direction.sqrMagnitude < 0.001f)
                 return;
-
-            var points = _pathCreator.Emit(transform.position, direction);
-            _indicatorDetector.Check(points);
-            _view.Display(points);
+            
+            points.Clear();
+            pointsColor.Clear();
+            _pathCreator.Emit(transform.position, direction, ref points);
+            _beamIndicatorSystem.Check(points);
+            _beamColorSystem.GetColors(points, _startColor, ref pointsColor);
+            _view.Display(points, pointsColor);
         }
 
         private void OnShootStarted(InputAction.CallbackContext _) => _isShooting = true;
@@ -63,7 +77,7 @@ namespace Features.PlayerLogic
         {
             _isShooting = false;
             _view.Clear();
-            _indicatorDetector.Clear();
+            _beamIndicatorSystem.Clear();
         }
     }
 }

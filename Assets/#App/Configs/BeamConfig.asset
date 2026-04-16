@@ -12,15 +12,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 346a73edc35eea548bda169eaaad92bd, type: 3}
   m_Name: BeamConfig
   m_EditorClassIdentifier: Assembly-CSharp::BeamConfig
-  _segmentPrefab: {fileID: 5190019863042444426, guid: e21f2e2735f9ca445ab7b73b3305aa46, type: 3}
-  _maxDistance: 10
-  _raycastMask:
+  <SegmentPrefab>k__BackingField: {fileID: 0}
+  <MaxDistance>k__BackingField: 0
+  <RaycastMask>k__BackingField:
     serializedVersion: 2
-    m_Bits: 65
-  _reflectableMask:
+    m_Bits: 0
+  <ReflectableMask>k__BackingField:
     serializedVersion: 2
-    m_Bits: 1
-  _indicatorDetectionRadius: 0.5
-  _indicatorLayerMask:
+    m_Bits: 0
+  <IndicatorDetectionRadius>k__BackingField: 0
+  <IndicatorLayerMask>k__BackingField:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 0
+  <ColorBindings>k__BackingField:
+  - Material: {fileID: 0}
+    Color: 0
+  - Material: {fileID: 0}
+    Color: 1
+  - Material: {fileID: 0}
+    Color: 2
+  - Material: {fileID: 0}
+    Color: 3
