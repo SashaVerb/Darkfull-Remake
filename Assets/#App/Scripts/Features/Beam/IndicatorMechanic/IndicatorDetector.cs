@@ -1,11 +1,12 @@
 using System.Collections.Generic;
+using Modules.Interactable;
 using UnityEngine;
 
 public class IndicatorDetector
 {
     private readonly BeamConfig _config;
-    private HashSet<IIndicator> _activeIndicators = new();
-    private HashSet<IIndicator> _currentIndicators = new();
+    private HashSet<IInteractable> _activeIndicators = new();
+    private HashSet<IInteractable> _currentIndicators = new();
     private readonly Collider[] _overlapBuffer = new Collider[32];
 
     public IndicatorDetector(BeamConfig config)
@@ -23,7 +24,7 @@ public class IndicatorDetector
 
             for (int i = 0; i < count; i++)
             {
-                if (_overlapBuffer[i].TryGetComponent(out IIndicator indicator))
+                if (_overlapBuffer[i].TryGetComponent(out IInteractable indicator))
                 {
                     if (_currentIndicators.Add(indicator))
                         indicator.Activate();
@@ -31,7 +32,7 @@ public class IndicatorDetector
             }
         }
 
-        foreach (IIndicator indicator in _activeIndicators)
+        foreach (IInteractable indicator in _activeIndicators)
         {
             if (!_currentIndicators.Contains(indicator))
                 indicator.Deactivate();
@@ -42,7 +43,7 @@ public class IndicatorDetector
 
     public void Clear()
     {
-        foreach (IIndicator indicator in _activeIndicators)
+        foreach (IInteractable indicator in _activeIndicators)
             indicator.Deactivate();
 
         _activeIndicators.Clear();
