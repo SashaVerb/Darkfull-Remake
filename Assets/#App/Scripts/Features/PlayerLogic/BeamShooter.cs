@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Features.Beam;
 using Features.Beam.ColorSystem;
+using UIManagement;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using VContainer;
@@ -11,6 +12,7 @@ namespace Features.PlayerLogic
     {
         [SerializeField] private BeamColor _startColor;
         [SerializeField] private InputActionReference _shootAction;
+        [SerializeField] private InputActionReference _showPickerAction;
         
         public bool IsShooting => _isShooting;
         
@@ -18,36 +20,50 @@ namespace Features.PlayerLogic
         private BeamPathCreator _pathCreator;
         private BeamIndicatorSystem _beamIndicatorSystem;
         private BeamColorSystem _beamColorSystem;
-        private BeamView _view;
-        
+        private BeamView _beamView;
+        private BeamColorPickerView _colorPickerView;
         private bool _isShooting;
-        private List<BeamPathPoint> points;
-        private List<BeamColor> pointsColor;
+        
+        private List<BeamPathPoint> _pathPoints = new();
+        private List<BeamColor> _pathColors = new();
         
         [Inject]
         private void Configure(BeamPathCreator pathCreator, BeamIndicatorSystem beamIndicatorSystem, 
-            BeamColorSystem beamColorSystem, BeamView view, Transform target)
+            BeamColorSystem beamColorSystem, BeamView view, Transform target, BeamColorPickerView picker)
         {
             _pathCreator = pathCreator;
             _beamIndicatorSystem = beamIndicatorSystem;
             _beamColorSystem = beamColorSystem;
-            _view = view;
+            _beamView = view;
             _target = target;
-            
-            points = new List<BeamPathPoint>();
-            pointsColor = new List<BeamColor>();
+
+            _colorPickerView = UIManager.Instantiate(picker);
         }
-        
+
+        private void OnColorPicked(BeamColor obj)
+        {
+            _startColor = obj;
+        }
+
         private void OnEnable()
         {
             _shootAction.action.started += OnShootStarted;
             _shootAction.action.canceled += OnShootCanceled;
+            _showPickerAction.action.started += OnShowPickerPerformed;
+            _showPickerAction.action.canceled += OnHidePickerPerformed;
+            
+            _colorPickerView.OnColorPicked += OnColorPicked;
         }
 
         private void OnDisable()
         {
             _shootAction.action.started -= OnShootStarted;
             _shootAction.action.canceled -= OnShootCanceled;
+            _showPickerAction.action.started -= OnShowPickerPerformed;
+            _showPickerAction.action.canceled -= OnHidePickerPerformed;
+
+            _colorPickerView.OnColorPicked -= OnColorPicked;
+
             StopBeam();
         }
         
@@ -61,14 +77,24 @@ namespace Features.PlayerLogic
             if (direction.sqrMagnitude < 0.001f)
                 return;
             
-            points.Clear();
-            pointsColor.Clear();
-            _pathCreator.Emit(transform.position, direction, ref points);
-            _beamIndicatorSystem.Check(points);
-            _beamColorSystem.GetColors(points, _startColor, ref pointsColor);
-            _view.Display(points, pointsColor);
+            _pathPoints.Clear();
+            _pathColors.Clear();
+            _pathCreator.Emit(transform.position, direction, ref _pathPoints);
+            _beamIndicatorSystem.Check(_pathPoints);
+            _beamColorSystem.GetColors(_pathPoints, _startColor, ref _pathColors);
+            _beamView.Display(_pathPoints, _pathColors);
         }
-
+        
+        private void OnShowPickerPerformed(InputAction.CallbackContext _)
+        {
+            UIManager.Show<BeamColorPickerView>();
+        }
+        
+        private void OnHidePickerPerformed(InputAction.CallbackContext _)
+        {
+            UIManager.Hide<BeamColorPickerView>();
+        }
+        
         private void OnShootStarted(InputAction.CallbackContext _) => _isShooting = true;
 
         private void OnShootCanceled(InputAction.CallbackContext _) => StopBeam();
@@ -76,7 +102,7 @@ namespace Features.PlayerLogic
         private void StopBeam()
         {
             _isShooting = false;
-            _view.Clear();
+            _beamView.Clear();
             _beamIndicatorSystem.Clear();
         }
     }
