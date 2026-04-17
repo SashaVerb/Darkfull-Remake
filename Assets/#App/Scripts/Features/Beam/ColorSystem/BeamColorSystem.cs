@@ -30,7 +30,7 @@ namespace Features.Beam.ColorSystem
                 if (point.Hit.HasValue)
                 {
                     Collider hitCollider = point.Hit.Value.collider;
-                    if (hitCollider != null && hitCollider.CompareTag(_config.ColorTag))
+                    if (hitCollider != null && hitCollider.CompareTag(_config.ColorTagHandle))
                     {
                         if (hitCollider.TryGetComponent(out BeamColorChanger changer))
                             currentColor = changer.Color;

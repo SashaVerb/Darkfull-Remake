@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Features.Beam;
 using Features.Beam.ColorSystem;
+using UnityEditor.UIElements;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "BeamConfig", menuName = "Configs/Beam Config")]
@@ -20,7 +21,11 @@ public class BeamConfig : ScriptableObject
     [field: SerializeField] public LayerMask IndicatorLayerMask { get; private set; }
 
     [Header("Beam Color")]
-    public TagHandle ColorTag;
+    [SerializeField] private string ColorTag;
+    
+    private TagHandle? cachedColorTagHandle;
+    public TagHandle ColorTagHandle => cachedColorTagHandle ??= TagHandle.GetExistingTag(ColorTag);
+    
     [field: SerializeField] private List<ColorMaterialBinding> ColorBindings { get; set; }
     
     public Material GetMaterialForColor(BeamColor color)

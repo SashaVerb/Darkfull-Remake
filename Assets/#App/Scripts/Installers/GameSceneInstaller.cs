@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Features.Beam.ColorSystem;
+using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
@@ -17,6 +18,7 @@ namespace _App.Scripts.Installers
             builder.Register<BeamPathCreator>(Lifetime.Singleton);
             builder.Register<BeamView>(Lifetime.Singleton).WithParameter(_beamParent);
             builder.Register<BeamIndicatorSystem>(Lifetime.Singleton);
+            builder.Register<BeamColorSystem>(Lifetime.Singleton);
             
             builder.RegisterInstance(_target);
         }

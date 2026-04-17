@@ -12,24 +12,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 346a73edc35eea548bda169eaaad92bd, type: 3}
   m_Name: BeamConfig
   m_EditorClassIdentifier: Assembly-CSharp::BeamConfig
-  <SegmentPrefab>k__BackingField: {fileID: 0}
-  <MaxDistance>k__BackingField: 0
+  <SegmentPrefab>k__BackingField: {fileID: 315494857146531083, guid: e21f2e2735f9ca445ab7b73b3305aa46, type: 3}
+  <MaxDistance>k__BackingField: 10
   <RaycastMask>k__BackingField:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4294967295
   <ReflectableMask>k__BackingField:
     serializedVersion: 2
-    m_Bits: 0
-  <IndicatorDetectionRadius>k__BackingField: 0
+    m_Bits: 1
+  <IndicatorDetectionRadius>k__BackingField: 0.25
   <IndicatorLayerMask>k__BackingField:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
+  ColorTag: Color
   <ColorBindings>k__BackingField:
-  - Material: {fileID: 0}
+  - Material: {fileID: 2100000, guid: 02752aa4e662bca45a3e3005aad802b3, type: 2}
     Color: 0
-  - Material: {fileID: 0}
+  - Material: {fileID: 2100000, guid: 2e15f127d91478a4cb73d0e39a765254, type: 2}
     Color: 1
-  - Material: {fileID: 0}
+  - Material: {fileID: 2100000, guid: 6457db31f77ad7c48a61b439f15f382f, type: 2}
     Color: 2
-  - Material: {fileID: 0}
+  - Material: {fileID: 2100000, guid: 2bd27642e1c1cc649a5f34389106f920, type: 2}
     Color: 3

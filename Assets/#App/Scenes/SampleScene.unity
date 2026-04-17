@@ -1454,9 +1454,10 @@ GameObject:
   - component: {fileID: 1337459693}
   - component: {fileID: 1337459692}
   - component: {fileID: 1337459691}
+  - component: {fileID: 1337459694}
   m_Layer: 0
   m_Name: Cube (2)
-  m_TagString: Untagged
+  m_TagString: Color
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1554,6 +1555,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1337459689}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1337459694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1337459689}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 912943efd5624de88b756cb71836644c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Features.Beam.ColorSystem.BeamColorChanger
+  <Color>k__BackingField: 1
 --- !u!1 &1373582884
 GameObject:
   m_ObjectHideFlags: 0
@@ -1566,9 +1580,10 @@ GameObject:
   - component: {fileID: 1373582888}
   - component: {fileID: 1373582887}
   - component: {fileID: 1373582886}
+  - component: {fileID: 1373582889}
   m_Layer: 0
   m_Name: Cube (1)
-  m_TagString: Untagged
+  m_TagString: Color
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1581,13 +1596,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1373582884}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.19, y: 5.12, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0.38720754, w: 0.92199266}
+  m_LocalPosition: {x: -0.23, y: 4.73, z: 0}
   m_LocalScale: {x: 0.543, y: 2.3241, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1674405974}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -45.562}
 --- !u!65 &1373582886
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1666,6 +1681,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1373582884}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1373582889
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1373582884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 912943efd5624de88b756cb71836644c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Features.Beam.ColorSystem.BeamColorChanger
+  <Color>k__BackingField: 2
 --- !u!1 &1674405973
 GameObject:
   m_ObjectHideFlags: 0

@@ -8,7 +8,7 @@ namespace KinematicCharacterController.Examples
         public InputActionReference Jump;
         public InputActionReference Move;
         public CharacterController Character;
-    
+
         private bool _jumpDown;
         private bool _crouchDown;
         private bool _crouchUp;
