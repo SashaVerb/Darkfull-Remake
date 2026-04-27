@@ -18,7 +18,6 @@ namespace _App.Scripts.Features.Death
         private void Awake()
         {
             CurrentHp = MaxHp;
-            OnDeath += () => Debug.Log("Die");
         }
 
         private void Update()
@@ -30,8 +29,6 @@ namespace _App.Scripts.Features.Death
 
             if (_timeSinceLastDamage >= RegenDelay && CurrentHp > 0f && CurrentHp < MaxHp)
                 CurrentHp = Mathf.Min(CurrentHp + RegenPerSecond * Time.deltaTime, MaxHp);
-            
-            Debug.Log(CurrentHp);
         }
 
         public void TakeDamage(float amount)

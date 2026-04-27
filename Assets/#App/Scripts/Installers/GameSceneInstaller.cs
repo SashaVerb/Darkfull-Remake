@@ -1,4 +1,5 @@
-﻿using Features.Beam.ColorSystem;
+﻿using _App.Scripts.Modules.Extensions.VContainer;
+using Features.Beam.ColorSystem;
 using UnityEditor.Rendering.BuiltIn.ShaderGraph;
 using UnityEngine;
 using VContainer;
@@ -22,7 +23,7 @@ namespace _App.Scripts.Installers
             builder.Register<BeamIndicatorSystem>(Lifetime.Singleton);
             builder.Register<BeamColorSystem>(Lifetime.Singleton);
             
-            builder.RegisterInstance(_beamColorPickerView);
+            builder.RegisterUI(_beamColorPickerView);
             
             builder.RegisterInstance(_target);
         }

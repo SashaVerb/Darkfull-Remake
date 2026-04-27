@@ -7,7 +7,7 @@
       "dependencies": {
         "com.cysharp.unitask": "https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask"
       },
-      "hash": "6bdf13cc321909d3399471aa22d81d786cd87d75"
+      "hash": "bb4968c7e22b0895a26c7b59cb824092913c04c6"
     },
     "com.cysharp.r3": {
       "version": "https://github.com/Cysharp/R3.git?path=src/R3.Unity/Assets/R3.Unity",

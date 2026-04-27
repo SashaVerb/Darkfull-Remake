@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 003f3801ae18af14e819ef9538a82402, type: 3}
+  m_Name: LevelConfig
+  m_EditorClassIdentifier: Assembly-CSharp::_App.Scripts.Modules.LevelManagement.LevelConfig
+  _levels:
+  - _sceneAsset: {fileID: 102900000, guid: 99c9720ab356a0642a771bea13969a05, type: 3}
+  - _sceneAsset: {fileID: 102900000, guid: db761c8c7897be347a967c3dc5de2e0e, type: 3}

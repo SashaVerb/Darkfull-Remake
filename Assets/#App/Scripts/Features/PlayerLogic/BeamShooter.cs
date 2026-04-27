@@ -37,7 +37,7 @@ namespace Features.PlayerLogic
             _beamView = view;
             _target = target;
 
-            _colorPickerView = UIManager.Instantiate(picker);
+            _colorPickerView = picker;
         }
 
         private void OnColorPicked(BeamColor obj)
@@ -87,12 +87,12 @@ namespace Features.PlayerLogic
         
         private void OnShowPickerPerformed(InputAction.CallbackContext _)
         {
-            UIManager.Show<BeamColorPickerView>();
+            _colorPickerView.Show();
         }
         
         private void OnHidePickerPerformed(InputAction.CallbackContext _)
         {
-            UIManager.Hide<BeamColorPickerView>();
+            _colorPickerView.Hide();
         }
         
         private void OnShootStarted(InputAction.CallbackContext _) => _isShooting = true;

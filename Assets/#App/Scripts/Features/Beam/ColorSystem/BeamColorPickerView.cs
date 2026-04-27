@@ -12,15 +12,17 @@ namespace Features.Beam.ColorSystem
 
         [SerializeField] private ButtonColorBinding[] bindings;
 
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
+            
             foreach (var binding in bindings)
             {
                 BeamColor capturedColor = binding.Color;
                 binding.Action = () => OnColorPicked?.Invoke(capturedColor);
             }
 
-            OnColorPicked += _ => UIManager.Hide<BeamColorPickerView>();
+            OnColorPicked += _ => Hide();
         }
 
         private void OnEnable()
