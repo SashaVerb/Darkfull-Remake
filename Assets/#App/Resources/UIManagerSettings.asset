@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aaf6dc36219bc2140a2ec4229617b047, type: 3}
+  m_Script: {fileID: 11500000, guid: c97e83cbbde624241ad4c8f5801a0e67, type: 3}
   m_Name: UIManagerSettings
   m_EditorClassIdentifier: UIManagement::UIManagement.UIManagerSettings
-  _canvasPrefab: {fileID: 4663029629313712230, guid: 4adf7a526db74e849a5485914a9470a6, type: 3}
+  _canvasPrefab: {fileID: 288606824069832144, guid: f0f9edc0c35dceb459e8ca9f8ea05ab1, type: 3}

@@ -85,14 +85,14 @@ GameObject:
   m_Component:
   - component: {fileID: 6977143121272112122}
   - component: {fileID: 7196658844453383440}
-  - component: {fileID: 5201387508415708424}
+  - component: {fileID: 3263460673877307055}
   m_Layer: 5
   m_Name: Transition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6977143121272112122
 RectTransform:
   m_ObjectHideFlags: 0
@@ -121,11 +121,11 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5709224185566916492}
   m_Enabled: 1
-  m_Alpha: 1
+  m_Alpha: 0
   m_Interactable: 1
-  m_BlocksRaycasts: 1
+  m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
---- !u!114 &5201387508415708424
+--- !u!114 &3263460673877307055
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -134,8 +134,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 5709224185566916492}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0cfa318e7db542248a0d512af8f8a4e3, type: 3}
+  m_Script: {fileID: 11500000, guid: b75ce250d2ed26a468323f7c6fab4d92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UIManagement::UIManagement.UIPanel
-  _animator: {fileID: 11400000, guid: fd655aa7668542c40a95d2e3df9dd6c4, type: 2}
+  _animator: {fileID: 11400000, guid: 2f451554ff1cc8346b958a470124c42f, type: 2}
   <CanvasGroupComponent>k__BackingField: {fileID: 7196658844453383440}

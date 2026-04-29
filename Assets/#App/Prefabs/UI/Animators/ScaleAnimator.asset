@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e67599446039e8a4cb90d5227a9f8911, type: 3}
-  m_Name: MainMenuFadeAnimator
-  m_EditorClassIdentifier: UIManagement::UIManagement.FadeAnimator
-  _duration: 0.1
+  m_Script: {fileID: 11500000, guid: c91ff1edb657b17408cdca1b30b8a246, type: 3}
+  m_Name: ScaleAnimator
+  m_EditorClassIdentifier: UIManagement::UIManagement.ScaleAnimator
+  _duration: 1
   _curve:
     serializedVersion: 2
     m_Curve:
@@ -37,3 +37,4 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  _startScale: {x: 0, y: 0, z: 0}

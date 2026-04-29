@@ -48,5 +48,5 @@ MonoBehaviour:
     TypeName: 
   autoRun: 1
   autoInjectGameObjects: []
-  _transition: {fileID: 5201387508415708424, guid: c3f76f8d3f4902042ba4b92d6c26a0b0, type: 3}
+  _transition: {fileID: 3263460673877307055, guid: c3f76f8d3f4902042ba4b92d6c26a0b0, type: 3}
   _levelConfig: {fileID: 11400000, guid: 640414b3ec142b148afe0bf42e0f57f8, type: 2}

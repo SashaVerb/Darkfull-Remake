@@ -1,4 +1,5 @@
 using _App.Scripts.Modules.LevelManagement;
+using UILogic;
 using UIManagement;
 using UnityEngine;
 using VContainer;
@@ -12,7 +13,9 @@ public class ProjectInstaller : LifetimeScope
     override protected void Configure(IContainerBuilder builder)
     {
         builder.Register<LevelManager>(Lifetime.Singleton)
-            .WithParameter(_transition)
+            .WithParameter(
+                UIManager.Instantiate(_transition, UISortGroup.TopLevel)
+                )
             .WithParameter(_levelConfig);
     }
 }
