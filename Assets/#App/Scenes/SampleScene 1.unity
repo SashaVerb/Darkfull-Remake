@@ -1259,6 +1259,7 @@ MonoBehaviour:
   autoInjectGameObjects:
   - {fileID: 347676159}
   - {fileID: 511069900}
+  _playerMovement: {fileID: 347676164}
   _beamConfig: {fileID: 11400000, guid: 558449ab01082ea41a96b35a8f5a2fc6, type: 2}
   _beamParent: {fileID: 511069904}
   _target: {fileID: 1853327568}

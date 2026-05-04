@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using Features.Beam;
 using Features.Beam.ColorSystem;
-using UIManagement;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using VContainer;
@@ -31,6 +30,8 @@ namespace Features.PlayerLogic
         private void Configure(BeamPathCreator pathCreator, BeamIndicatorSystem beamIndicatorSystem, 
             BeamColorSystem beamColorSystem, BeamView view, Transform target, BeamColorPickerView picker)
         {
+            Debug.Log("Configuring BeamShooter");
+
             _pathCreator = pathCreator;
             _beamIndicatorSystem = beamIndicatorSystem;
             _beamColorSystem = beamColorSystem;
@@ -47,6 +48,8 @@ namespace Features.PlayerLogic
 
         private void OnEnable()
         {
+            Debug.Log("OnEnable BeamShooter");
+
             _shootAction.action.started += OnShootStarted;
             _shootAction.action.canceled += OnShootCanceled;
             _showPickerAction.action.started += OnShowPickerPerformed;
@@ -61,7 +64,7 @@ namespace Features.PlayerLogic
             _shootAction.action.canceled -= OnShootCanceled;
             _showPickerAction.action.started -= OnShowPickerPerformed;
             _showPickerAction.action.canceled -= OnHidePickerPerformed;
-
+            
             _colorPickerView.OnColorPicked -= OnColorPicked;
 
             StopBeam();

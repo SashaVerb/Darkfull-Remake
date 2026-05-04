@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using VContainer;
 
 namespace Modules.MouseFollower
 {
@@ -14,7 +15,7 @@ namespace Modules.MouseFollower
     {
         [SerializeField] private ProjectionPlane _projectionPlane;
         [SerializeField] private Transform _planePivot;
-        [SerializeField] private Camera _camera;
+        [Inject] [SerializeField] private Camera _camera;
         [SerializeField] private bool _limitToCircle;
         [SerializeField] private float _limitRadius;
 

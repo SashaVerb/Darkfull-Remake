@@ -12,6 +12,7 @@ namespace _App.Scripts.Modules.LevelManagement
 
         public int CurrentIndex => _currentIndex;
         public int LastIndex => _lastIndex;
+        public bool IsLoading => _isLoading;
 
         private readonly LevelConfig _config;
         private readonly UIPanel _transition;
