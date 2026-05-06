@@ -1,13 +1,31 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace KinematicCharacterController.Examples
 {
     public class EnemyMovement : MonoBehaviour
     {
-        public CharacterController Character;
-        public Transform Target;
-        public float StopDistance;
-        public float ChaseDistance;
+        [SerializeField] private CharacterController Character;
+        
+        public float StopDistance = 1.5f;
+
+        private readonly List<Transform> _targets = new();
+        private Transform _currentTarget;
+
+        private void OnTriggerEnter(Collider other)
+        {
+            _targets.Add(other.transform);
+            _currentTarget = other.transform;
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            _targets.Remove(other.transform);
+            if (other.transform == _currentTarget)
+            {
+                _currentTarget = _targets.Count > 0 ? _targets[^1] : null;
+            }
+        }
 
         private void Update()
         {
@@ -18,7 +36,7 @@ namespace KinematicCharacterController.Examples
         {
             AICharacterInputs characterInputs = new AICharacterInputs();
 
-            if (Character == null || Target == null)
+            if (_currentTarget == null)
             {
                 characterInputs.MoveVector = Vector3.zero;
                 characterInputs.LookVector = Vector3.zero;
@@ -26,10 +44,10 @@ namespace KinematicCharacterController.Examples
                 return;
             }
 
-            Vector3 targetDirection = Target.position - transform.position;
+            Vector3 targetDirection = _currentTarget.position - transform.position;
             targetDirection = Vector3.ProjectOnPlane(targetDirection, Character.Motor.CharacterUp);
 
-            if (targetDirection.sqrMagnitude <= StopDistance * StopDistance || targetDirection.sqrMagnitude >= ChaseDistance * ChaseDistance)
+            if (targetDirection.sqrMagnitude <= StopDistance * StopDistance)
             {
                 characterInputs.MoveVector = Vector3.zero;
                 characterInputs.LookVector = Vector3.zero;
