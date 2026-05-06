@@ -3,6 +3,7 @@ using Modules.Interactable;
 using Modules.Interactable.Progress;
 using UnityEngine;
 using UnityEngine.Events;
+using VContainer;
 
 namespace Modules.Interaction
 {

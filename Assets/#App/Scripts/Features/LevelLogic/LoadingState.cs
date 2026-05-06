@@ -18,8 +18,6 @@ namespace _App.Scripts.Features.LevelLogic
 
         public override void OnEnter()
         {
-            Debug.Log("[LoadingState] Enter");
-
             if (!_levelManager.IsLoading)
             {
                 HandleLevelReady();
@@ -32,13 +30,11 @@ namespace _App.Scripts.Features.LevelLogic
 
         public override void OnExit()
         {
-            Debug.Log("[GameplayState] Exit");
             _levelManager.OnLevelReady -= HandleLevelReady;
         }
 
         private void HandleLevelReady()
         {
-            Debug.Log("[GameplayState] Need Exit");
             fsm.StateCanExit();
         }
     }

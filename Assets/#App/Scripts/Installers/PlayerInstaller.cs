@@ -2,6 +2,7 @@ using _App.Scripts.Features.Death;
 using _App.Scripts.Modules.Extensions.VContainer;
 using Features.Beam.ColorSystem;
 using Features.PlayerLogic;
+using KinematicCharacterController;
 using KinematicCharacterController.Examples;
 using UnityEngine;
 using VContainer;
@@ -18,10 +19,10 @@ namespace _App.Scripts.Installers
         [SerializeField] private Transform _beamParent;
         [SerializeField] private Transform _target;
         [SerializeField] private BeamColorPickerView _beamColorPickerView;
+        [SerializeField] private KinematicCharacterMotor _motor;
 
         protected override void Configure(IContainerBuilder builder)
         {
-            Debug.Log("Configuring PlayerInstaller");
             Install(builder);
         }
 
@@ -39,6 +40,8 @@ namespace _App.Scripts.Installers
             
             builder.RegisterInstance(_playerMovement);
             builder.RegisterInstance(_playerHealth);
+            builder.RegisterInstance(_motor);
+            builder.RegisterComponent(_beamShooter);
         }
     }
 }

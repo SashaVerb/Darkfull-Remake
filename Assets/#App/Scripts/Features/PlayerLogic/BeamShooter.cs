@@ -30,8 +30,6 @@ namespace Features.PlayerLogic
         private void Configure(BeamPathCreator pathCreator, BeamIndicatorSystem beamIndicatorSystem, 
             BeamColorSystem beamColorSystem, BeamView view, Transform target, BeamColorPickerView picker)
         {
-            Debug.Log("Configuring BeamShooter");
-
             _pathCreator = pathCreator;
             _beamIndicatorSystem = beamIndicatorSystem;
             _beamColorSystem = beamColorSystem;
@@ -48,8 +46,6 @@ namespace Features.PlayerLogic
 
         private void OnEnable()
         {
-            Debug.Log("OnEnable BeamShooter");
-
             _shootAction.action.started += OnShootStarted;
             _shootAction.action.canceled += OnShootCanceled;
             _showPickerAction.action.started += OnShowPickerPerformed;

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using VContainer;
@@ -48,6 +49,7 @@ namespace Modules.MouseFollower
                 ProjectionPlane.XZ => new Plane(Vector3.up, _planePivot.position),
                 ProjectionPlane.XY => new Plane(Vector3.forward, _planePivot.position),
                 ProjectionPlane.YZ => new Plane(Vector3.right, _planePivot.position),
+                _ => throw new ArgumentOutOfRangeException()
             };
 
             if (plane.Raycast(ray, out float distance))
@@ -67,6 +69,7 @@ namespace Modules.MouseFollower
                 ProjectionPlane.XZ => Quaternion.identity,
                 ProjectionPlane.XY => Quaternion.Euler(90f, 0f, 0f),
                 ProjectionPlane.YZ => Quaternion.Euler(0f, 90f, 0f),
+                _ => throw new ArgumentOutOfRangeException()
             };
 
             Matrix4x4 oldMatrix = Gizmos.matrix;

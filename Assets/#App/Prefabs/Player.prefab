@@ -284,8 +284,7 @@ MonoBehaviour:
   parentReference:
     TypeName: 
   autoRun: 1
-  autoInjectGameObjects:
-  - {fileID: 7767100659780444594}
+  autoInjectGameObjects: []
   _playerMovement: {fileID: 1852786643815803450}
   _playerHealth: {fileID: 4765308699729655802}
   _beamShooter: {fileID: 3605503377717552749}
@@ -293,6 +292,7 @@ MonoBehaviour:
   _beamParent: {fileID: 3592485184627878365}
   _target: {fileID: 6480616950467286602}
   _beamColorPickerView: {fileID: 2159329521992204453, guid: 7ccc7a373d8a0cb46a1d50e1f17af669, type: 3}
+  _motor: {fileID: 9003917328439531972}
 --- !u!114 &1852786643815803450
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,4 +1,5 @@
 using _App.Scripts.Features.LevelLogic;
+using _App.Scripts.Modules.Extensions.VContainer;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -11,13 +12,13 @@ namespace _App.Scripts.Installers
         [SerializeField] private PlayerInstaller _playerPrefab;
         [SerializeField] private Transform _spawnPoint;
         
-        private LifetimeScope _playerScope;
-        
         protected override void Configure(IContainerBuilder builder)
         {
             SetSceneObjects(builder);
             
-            builder.RegisterBuildCallback(BuildPlayer);
+            builder.RegisterPrefabInstaller(_playerPrefab, _spawnPoint.position, _spawnPoint.rotation);
+            
+            InstallLevelController(builder);
         }
         
         private void SetSceneObjects(IContainerBuilder builder)
@@ -25,15 +26,6 @@ namespace _App.Scripts.Installers
             builder.RegisterInstance(_camera);
         }
         
-        private void BuildPlayer(IObjectResolver obj)
-        {
-            var player = CreateChildFromPrefab(_playerPrefab, InstallLevelController);
-            
-            player.transform.SetParent(null);
-            player.transform.position = _spawnPoint.position;
-            player.transform.rotation = _spawnPoint.rotation;
-        }
-
         private void InstallLevelController(IContainerBuilder builder)
         {
             builder.Register<GameplayState>(Lifetime.Singleton);

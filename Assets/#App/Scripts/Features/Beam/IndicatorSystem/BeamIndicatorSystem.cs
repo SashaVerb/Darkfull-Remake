@@ -2,10 +2,12 @@ using System.Collections.Generic;
 using Features.Beam;
 using Modules.Interactable;
 using UnityEngine;
+using VContainer;
 
 public class BeamIndicatorSystem
 {
     private readonly BeamConfig _config;
+    private readonly IObjectResolver _resolver;
 
     private HashSet<IInteractable> _activeIndicators = new();
 
@@ -26,7 +28,12 @@ public class BeamIndicatorSystem
                 if (_overlapBuffer[i].TryGetComponent(out IInteractable indicator))
                 {
                     if (_currentIndicators.Add(indicator))
+                    {
+                        if (_overlapBuffer[i].TryGetComponent(out IInteractionContext context))
+                            context.Provide(_resolver);
+
                         indicator.Activate();
+                    }
                 }
             }
         }
@@ -34,21 +41,26 @@ public class BeamIndicatorSystem
         foreach (IInteractable indicator in _activeIndicators)
         {
             if (!_currentIndicators.Contains(indicator))
+            {
                 indicator.Deactivate();
+            }
         }
 
         (_activeIndicators, _currentIndicators) = (_currentIndicators, _activeIndicators);
     }
 
-    public BeamIndicatorSystem(BeamConfig config)
+    public BeamIndicatorSystem(BeamConfig config, IObjectResolver resolver)
     {
         _config = config;
+        _resolver = resolver;
     }
 
     public void Clear()
     {
         foreach (IInteractable indicator in _activeIndicators)
+        {
             indicator.Deactivate();
+        }
 
         _activeIndicators.Clear();
     }

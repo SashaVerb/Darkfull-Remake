@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using Features.Beam;
 using Features.Beam.ColorSystem;
-using UnityEditor.UIElements;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "BeamConfig", menuName = "Configs/Beam Config")]
