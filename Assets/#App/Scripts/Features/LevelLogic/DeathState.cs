@@ -1,16 +1,18 @@
+using _App.Scripts.Features.Death;
 using _App.Scripts.Modules.LevelManagement;
+using Cysharp.Threading.Tasks;
 using KinematicCharacterController.Examples;
-using UnityEngine;
 using UnityHFSM;
 
 namespace _App.Scripts.Features.LevelLogic
 {
-    public class LoadingState : StateBase<LevelState>
+    public class DeathState : StateBase<LevelState>
     {
         private readonly LevelManager _levelManager;
         private readonly PlayerMovement _playerMovement;
 
-        public LoadingState(LevelManager levelManager, PlayerMovement playerMovement) : base(needsExitTime: true)
+        public DeathState(LevelManager levelManager, PlayerMovement playerMovement)
+            : base(needsExitTime: false)
         {
             _levelManager = levelManager;
             _playerMovement = playerMovement;
@@ -18,14 +20,8 @@ namespace _App.Scripts.Features.LevelLogic
 
         public override void OnEnter()
         {
-            Debug.Log("LoadingState");
-            _playerMovement.enabled = false;
-        }
-
-        public override void OnLogic()
-        {
-            if (!_levelManager.IsLoading)
-                fsm.StateCanExit();
+            _playerMovement.gameObject.SetActive(false);
+            _levelManager.ResetLevel().Forget();
         }
     }
 }

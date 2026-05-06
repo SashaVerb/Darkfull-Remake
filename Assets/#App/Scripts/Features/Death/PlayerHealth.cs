@@ -54,6 +54,7 @@ namespace _App.Scripts.Features.Death
             CurrentHp = 0f;
             _timeSinceLastDamage = 0f;
             OnDeath?.Invoke();
+            Debug.Log("Death");
         }
     }
 }

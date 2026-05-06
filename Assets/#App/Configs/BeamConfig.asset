@@ -16,7 +16,7 @@ MonoBehaviour:
   <MaxDistance>k__BackingField: 10
   <RaycastMask>k__BackingField:
     serializedVersion: 2
-    m_Bits: 119
+    m_Bits: 115
   <ReflectableMask>k__BackingField:
     serializedVersion: 2
     m_Bits: 1

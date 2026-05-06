@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using UIManagement;
 using UnityEngine;
@@ -17,14 +18,17 @@ namespace _App.Scripts.Modules.LevelManagement
         private readonly LevelConfig _config;
         private readonly UIPanel _transition;
 
-        private int _currentIndex = -1;
+        private int _currentIndex;
         private int _lastIndex = -1;
         private bool _isLoading;
+        private CancellationTokenSource _loadCts;
 
         public LevelManager(LevelConfig config, UIPanel transition)
         {
             _config = config;
             _transition = transition;
+            
+            _currentIndex = SceneManager.GetActiveScene().buildIndex;
         }
 
         public UniTask LoadNextLevel()
@@ -59,22 +63,31 @@ namespace _App.Scripts.Modules.LevelManagement
 
         public async UniTask LoadLevel(int index)
         {
-            if (_isLoading)
-                return;
+            _loadCts?.Cancel();
+            _loadCts?.Dispose();
+            _loadCts = new CancellationTokenSource();
+            var token = _loadCts.Token;
 
             _isLoading = true;
 
-            await _transition.Show();
+            try
+            {
+                await _transition.Show().AttachExternalCancellation(token);
 
-            _lastIndex = _currentIndex;
-            _currentIndex = index;
+                _lastIndex = _currentIndex;
+                _currentIndex = index;
 
-            await SceneManager.LoadSceneAsync(_config.Levels[index].Name);
+                await SceneManager.LoadSceneAsync(_config.Levels[index].Name).ToUniTask(cancellationToken: token);
 
-            await _transition.Hide();
+                await _transition.Hide().AttachExternalCancellation(token);
 
-            _isLoading = false;
-            OnLevelReady?.Invoke();
+                _isLoading = false;
+                OnLevelReady?.Invoke();
+            }
+            catch (OperationCanceledException)
+            {
+                _isLoading = false;
+            }
         }
     }
 }

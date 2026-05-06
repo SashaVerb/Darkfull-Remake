@@ -15,7 +15,7 @@ namespace _App.Scripts.Features.LevelLogic
 
         public override void OnEnter()
         {
-            Debug.Log("[GameplayState] Enter");
+            Debug.Log("GameplayState");
             _playerMovement.enabled = true;
         }
     }

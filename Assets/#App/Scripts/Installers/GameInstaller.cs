@@ -30,6 +30,7 @@ namespace _App.Scripts.Installers
         {
             builder.Register<GameplayState>(Lifetime.Singleton);
             builder.Register<LoadingState>(Lifetime.Singleton);
+            builder.Register<DeathState>(Lifetime.Singleton);
             builder.RegisterEntryPoint<LevelController>();
         }
     }
