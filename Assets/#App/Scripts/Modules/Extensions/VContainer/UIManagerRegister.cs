@@ -1,5 +1,6 @@
 using UIManagement;
 using VContainer;
+using VContainer.Unity;
 
 namespace _App.Scripts.Modules.Extensions.VContainer
 {
@@ -10,7 +11,7 @@ namespace _App.Scripts.Modules.Extensions.VContainer
             builder.Register(resolver =>
             {
                 var instance = UIManager.Instantiate(uiPanel);
-                resolver.Inject(instance);
+                resolver.InjectGameObject(instance.gameObject);
                 return instance;
             }, Lifetime.Singleton);
         }
