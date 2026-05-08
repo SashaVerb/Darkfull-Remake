@@ -27,6 +27,15 @@ namespace KinematicCharacterController.Examples
             }
         }
 
+        public void Stop()
+        {
+            AICharacterInputs characterInputs = new AICharacterInputs();
+        
+            characterInputs.MoveVector = Vector3.zero;
+            characterInputs.LookVector = Vector3.zero;
+            Character?.SetInputs(ref characterInputs);
+        }
+        
         private void Update()
         {
             HandleCharacterInput();
