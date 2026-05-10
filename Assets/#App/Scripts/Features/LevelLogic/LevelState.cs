@@ -5,6 +5,7 @@ namespace _App.Scripts.Features.LevelLogic
         Any,
         Loading,
         Gameplay,
-        Death
+        Death,
+        LevelComplete
     }
 }

@@ -1,5 +1,5 @@
 using _App.Scripts.Modules.LevelManagement;
-using KinematicCharacterController.Examples;
+using Features.PlayerLogic;
 using UnityEngine;
 using UnityHFSM;
 
@@ -8,18 +8,18 @@ namespace _App.Scripts.Features.LevelLogic
     public class LoadingState : StateBase<LevelState>
     {
         private readonly LevelManager _levelManager;
-        private readonly PlayerMovement _playerMovement;
+        private readonly PlayerFacade _playerFacade;
 
-        public LoadingState(LevelManager levelManager, PlayerMovement playerMovement) : base(needsExitTime: true)
+        public LoadingState(LevelManager levelManager, PlayerFacade playerFacade) : base(needsExitTime: true)
         {
             _levelManager = levelManager;
-            _playerMovement = playerMovement;
+            _playerFacade = playerFacade;
         }
 
         public override void OnEnter()
         {
             Debug.Log("LoadingState");
-            _playerMovement.enabled = false;
+            _playerFacade.Freeze();
         }
 
         public override void OnLogic()

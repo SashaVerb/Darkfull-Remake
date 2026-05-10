@@ -1,4 +1,4 @@
-using KinematicCharacterController.Examples;
+using Features.PlayerLogic;
 using UnityEngine;
 using UnityHFSM;
 
@@ -6,17 +6,17 @@ namespace _App.Scripts.Features.LevelLogic
 {
     public class GameplayState : StateBase<LevelState>
     {
-        private readonly PlayerMovement _playerMovement;
+        private readonly PlayerFacade _playerFacade;
 
-        public GameplayState(PlayerMovement playerMovement) : base(needsExitTime: false)
+        public GameplayState(PlayerFacade playerFacade) : base(needsExitTime: false)
         {
-            _playerMovement = playerMovement;
+            _playerFacade = playerFacade;
         }
 
         public override void OnEnter()
         {
             Debug.Log("GameplayState");
-            _playerMovement.enabled = true;
+            _playerFacade.Unfreeze();
         }
     }
 }

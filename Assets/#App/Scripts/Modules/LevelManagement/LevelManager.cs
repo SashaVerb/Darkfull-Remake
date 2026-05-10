@@ -2,7 +2,6 @@ using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using UIManagement;
-using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace _App.Scripts.Modules.LevelManagement
@@ -40,6 +39,10 @@ namespace _App.Scripts.Modules.LevelManagement
 
             return LoadLevel(nextIndex);
         }
+
+        public UniTask FadeOut() => _transition.Show();
+
+        public UniTask FadeIn() => _transition.Hide();
 
         public UniTask ResetLevel()
         {

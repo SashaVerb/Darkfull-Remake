@@ -56,5 +56,12 @@ namespace _App.Scripts.Features.Death
             OnDeath?.Invoke();
             Debug.Log("Death");
         }
+
+        public void Revive()
+        {
+            IsDead = false;
+            CurrentHp = MaxHp;
+            _timeSinceLastDamage = 0f;
+        }
     }
 }

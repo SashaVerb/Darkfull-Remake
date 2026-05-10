@@ -79,8 +79,8 @@ namespace Features.PlayerLogic
             _pathPoints.Clear();
             _pathColors.Clear();
             _pathCreator.Emit(transform.position, direction, ref _pathPoints);
-            _beamIndicatorSystem.Check(_pathPoints);
             _beamColorSystem.GetColors(_pathPoints, _startColor, ref _pathColors);
+            _beamIndicatorSystem.Check(_pathPoints, _pathColors);
             _beamView.Display(_pathPoints, _pathColors);
         }
         

@@ -1,4 +1,5 @@
 using System;
+using Features.PlayerLogic;
 using KinematicCharacterController;
 using UnityEngine;
 using VContainer;
@@ -12,7 +13,8 @@ namespace Modules.Interactable
         private Vector3 Destination => _overrideTeleportDestination != null ? _overrideTeleportDestination.position : transform.position;
         private IInteractable _interactable;
         private KinematicCharacterMotor _motor;
-        
+        private PlayerFacade _player;
+
         private void Awake()
         {
             _interactable = GetComponent<IInteractable>();
@@ -33,6 +35,7 @@ namespace Modules.Interactable
         public void Provide(IObjectResolver resolver)
         {
             _motor = resolver.Resolve<KinematicCharacterMotor>();
+            _player = resolver.Resolve<PlayerFacade>();
         }
 
         public void Revoke()
@@ -43,6 +46,7 @@ namespace Modules.Interactable
         private void Teleport()
         {
             _motor.SetPosition(Destination);
+            _player.DisableBeamFor(1f);
         }
     }
 }

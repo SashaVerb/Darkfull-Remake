@@ -42,6 +42,7 @@ namespace _App.Scripts.Installers
             builder.RegisterInstance(_playerHealth);
             builder.RegisterInstance(_motor);
             builder.RegisterComponent(_beamShooter);
+            builder.Register<PlayerFacade>(Lifetime.Singleton).WithParameter(_motor.gameObject);
         }
     }
 }

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Features.Beam;
+using Features.Beam.ColorSystem;
 using Modules.Interactable;
 using UnityEngine;
 using VContainer;
@@ -15,18 +16,27 @@ public class BeamIndicatorSystem
 
     private readonly Collider[] _overlapBuffer = new Collider[32];
 
-    public void Check(in List<BeamPathPoint> points)
+    public void Check(in List<BeamPathPoint> points, IReadOnlyList<BeamColor> colors = null)
     {
         _currentIndicators.Clear();
 
-        foreach (BeamPathPoint point in points)
+        for (int pointIndex = 0; pointIndex < points.Count; pointIndex++)
         {
+            BeamPathPoint point = points[pointIndex];
+            BeamColor currentColor = (colors != null && pointIndex < colors.Count) ? colors[pointIndex] : default;
+
             int count = Physics.OverlapSphereNonAlloc(point.Position, _config.IndicatorDetectionRadius, _overlapBuffer, _config.IndicatorLayerMask);
 
             for (int i = 0; i < count; i++)
             {
                 if (_overlapBuffer[i].TryGetComponent(out IInteractable indicator))
                 {
+                    if (colors != null && _overlapBuffer[i].TryGetComponent(out BeamColorFilter colorFilter))
+                    {
+                        if (!colorFilter.AcceptsColor(currentColor))
+                            continue;
+                    }
+
                     if (_currentIndicators.Add(indicator))
                     {
                         if (_overlapBuffer[i].TryGetComponent(out IInteractionContext context))

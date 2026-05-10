@@ -20,6 +20,7 @@ namespace KinematicCharacterController.Examples
 
         private void OnDisable()
         {
+            SetZeroInput();
             Jump.action.started -= OnJumpStarted;
         }
 
@@ -46,6 +47,19 @@ namespace KinematicCharacterController.Examples
             _jumpDown = false;
             _crouchDown = false;
             _crouchUp = false;
+        }
+
+        private void SetZeroInput()
+        {
+            PlayerCharacterInputs characterInputs = new PlayerCharacterInputs();
+
+            characterInputs.MoveAxisForward = 0f;
+            characterInputs.MoveAxisRight = 0f;
+            characterInputs.JumpDown = false;
+            characterInputs.CrouchDown = false;
+            characterInputs.CrouchUp = false;
+
+            Character.SetInputs(ref characterInputs);
         }
     }
 }
