@@ -5,7 +5,7 @@ namespace KinematicCharacterController.Examples
 {
     public class EnemyMovement : MonoBehaviour
     {
-        [SerializeField] private CharacterController Character;
+        [SerializeField] private CharacterMovementController _characterMovement;
         
         public float StopDistance = 1.5f;
 
@@ -33,7 +33,7 @@ namespace KinematicCharacterController.Examples
         
             characterInputs.MoveVector = Vector3.zero;
             characterInputs.LookVector = Vector3.zero;
-            Character?.SetInputs(ref characterInputs);
+            _characterMovement?.SetInputs(ref characterInputs);
         }
         
         private void Update()
@@ -49,12 +49,12 @@ namespace KinematicCharacterController.Examples
             {
                 characterInputs.MoveVector = Vector3.zero;
                 characterInputs.LookVector = Vector3.zero;
-                Character?.SetInputs(ref characterInputs);
+                _characterMovement?.SetInputs(ref characterInputs);
                 return;
             }
 
             Vector3 targetDirection = _currentTarget.position - transform.position;
-            targetDirection = Vector3.ProjectOnPlane(targetDirection, Character.Motor.CharacterUp);
+            targetDirection = Vector3.ProjectOnPlane(targetDirection, _characterMovement.Motor.CharacterUp);
 
             if (targetDirection.sqrMagnitude <= StopDistance * StopDistance)
             {
@@ -68,7 +68,7 @@ namespace KinematicCharacterController.Examples
                 characterInputs.LookVector = moveDirection;
             }
 
-            Character.SetInputs(ref characterInputs);
+            _characterMovement.SetInputs(ref characterInputs);
         }
     }
 }

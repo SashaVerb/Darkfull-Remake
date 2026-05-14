@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -38,7 +38,7 @@ namespace KinematicCharacterController.Examples
         TowardsGroundSlopeAndGravity,
     }
 
-    public class CharacterController : MonoBehaviour, ICharacterController
+    public class CharacterMovementController : MonoBehaviour, ICharacterController
     {
         public Action OnJump;
         
@@ -47,6 +47,7 @@ namespace KinematicCharacterController.Examples
         [Header("Stable Movement")]
         public float MaxStableMoveSpeed = 10f;
         public float StableMovementSharpness = 15f;
+        public float StableBrakingSharpness = 15f;
         public float OrientationSharpness = 10f;
         public OrientationMethod OrientationMethod = OrientationMethod.TowardsCamera;
 
@@ -303,7 +304,8 @@ namespace KinematicCharacterController.Examples
                             Vector3 targetMovementVelocity = reorientedInput * MaxStableMoveSpeed;
 
                             // Smooth movement Velocity
-                            currentVelocity = Vector3.Lerp(currentVelocity, targetMovementVelocity, 1f - Mathf.Exp(-StableMovementSharpness * deltaTime));
+                            float sharpness = _moveInputVector.sqrMagnitude > 0f ? StableMovementSharpness : StableBrakingSharpness;
+                            currentVelocity = Vector3.Lerp(currentVelocity, targetMovementVelocity, 1f - Mathf.Exp(-sharpness * deltaTime));
                         }
                         // Air movement
                         else

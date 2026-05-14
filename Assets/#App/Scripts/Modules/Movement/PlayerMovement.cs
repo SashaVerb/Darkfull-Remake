@@ -7,7 +7,7 @@ namespace KinematicCharacterController.Examples
     {
         public InputActionReference Jump;
         public InputActionReference Move;
-        public CharacterController Character;
+        public CharacterMovementController _characterMovement;
 
         private bool _jumpDown;
         private bool _crouchDown;
@@ -42,7 +42,7 @@ namespace KinematicCharacterController.Examples
             characterInputs.CrouchDown = _crouchDown;
             characterInputs.CrouchUp = _crouchUp;
 
-            Character.SetInputs(ref characterInputs);
+            _characterMovement.SetInputs(ref characterInputs);
 
             _jumpDown = false;
             _crouchDown = false;
@@ -59,7 +59,7 @@ namespace KinematicCharacterController.Examples
             characterInputs.CrouchDown = false;
             characterInputs.CrouchUp = false;
 
-            Character.SetInputs(ref characterInputs);
+            _characterMovement.SetInputs(ref characterInputs);
         }
     }
 }

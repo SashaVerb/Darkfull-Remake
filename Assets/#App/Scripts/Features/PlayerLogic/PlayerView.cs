@@ -1,6 +1,6 @@
 using Features.PlayerLogic;
+using KinematicCharacterController.Examples;
 using UnityEngine;
-using CharacterController = KinematicCharacterController.Examples.CharacterController;
 
 public class PlayerView : MonoBehaviour
 {
@@ -10,7 +10,7 @@ public class PlayerView : MonoBehaviour
     private readonly int IsGrounded = Animator.StringToHash("IsGrounded");
     
     [SerializeField] private Animator _animator;
-    [SerializeField] private CharacterController _characterController;
+    [SerializeField] private CharacterMovementController _characterMovementController;
     [SerializeField] private Transform _target;
     [SerializeField] private BeamShooter _beamShooter;
 
@@ -22,12 +22,12 @@ public class PlayerView : MonoBehaviour
             transform.rotation = Quaternion.LookRotation(-transform.forward);
         }
 
-        float movementDirectionSign = Mathf.Sign(Vector3.Dot(_characterController.Velocity, transform.forward));
-        float horizontalSpeed = Mathf.Abs(_characterController.Velocity.x) * movementDirectionSign;
+        float movementDirectionSign = Mathf.Sign(Vector3.Dot(_characterMovementController.Velocity, transform.forward));
+        float horizontalSpeed = Mathf.Abs(_characterMovementController.Velocity.x) * movementDirectionSign;
 
         _animator.SetFloat(SpeedX, horizontalSpeed);
-        _animator.SetFloat(SpeedY, _characterController.Velocity.y);
-        _animator.SetBool(IsGrounded, _characterController.IsGrounded);
+        _animator.SetFloat(SpeedY, _characterMovementController.Velocity.y);
+        _animator.SetBool(IsGrounded, _characterMovementController.IsGrounded);
     }
 
     private void OnAnimatorIK(int layerIndex)
@@ -49,12 +49,12 @@ public class PlayerView : MonoBehaviour
 
     private void OnEnable()
     {
-        _characterController.OnJump += PlayJumpAnimation;
+        _characterMovementController.OnJump += PlayJumpAnimation;
     }
     
     private void OnDisable()
     {
-        _characterController.OnJump -= PlayJumpAnimation;
+        _characterMovementController.OnJump -= PlayJumpAnimation;
     }
 
     private void PlayJumpAnimation()

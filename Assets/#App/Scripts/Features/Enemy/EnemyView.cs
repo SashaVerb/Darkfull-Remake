@@ -1,5 +1,5 @@
+using KinematicCharacterController.Examples;
 using UnityEngine;
-using CharacterController = KinematicCharacterController.Examples.CharacterController;
 
 public class EnemyView : MonoBehaviour
 {
@@ -8,12 +8,12 @@ public class EnemyView : MonoBehaviour
     private readonly int IsGrounded = Animator.StringToHash("IsGrounded");
 
     [SerializeField] private Animator _animator;
-    [SerializeField] private CharacterController _characterController;
+    [SerializeField] private CharacterMovementController _characterMovementController;
 
     private void Update()
     {
-        float movementDirectionSign = Mathf.Sign(Vector3.Dot(_characterController.Velocity, transform.forward));
-        float horizontalSpeed = Mathf.Abs(_characterController.Velocity.x) * movementDirectionSign;
+        float movementDirectionSign = Mathf.Sign(Vector3.Dot(_characterMovementController.Velocity, transform.forward));
+        float horizontalSpeed = Mathf.Abs(_characterMovementController.Velocity.x) * movementDirectionSign;
         
         if (movementDirectionSign < 0)
         {
@@ -21,8 +21,8 @@ public class EnemyView : MonoBehaviour
         }
         
         _animator.SetFloat(SpeedX, horizontalSpeed);
-        _animator.SetFloat(SpeedY, _characterController.Velocity.y);
-        _animator.SetBool(IsGrounded, _characterController.IsGrounded);
+        _animator.SetFloat(SpeedY, _characterMovementController.Velocity.y);
+        _animator.SetBool(IsGrounded, _characterMovementController.IsGrounded);
     }
 
     // private void OnAnimatorIK(int layerIndex)

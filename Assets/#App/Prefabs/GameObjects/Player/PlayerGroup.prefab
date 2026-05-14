@@ -1066,8 +1066,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::KinematicCharacterController.Examples.KinematicCharacterController
   Motor: {fileID: 6611360682564751779}
-  MaxStableMoveSpeed: 10
-  StableMovementSharpness: 7
+  MaxStableMoveSpeed: 7
+  StableMovementSharpness: 3
+  StableBrakingSharpness: 7
   OrientationSharpness: 0
   OrientationMethod: 1
   MaxAirMoveSpeed: 10
