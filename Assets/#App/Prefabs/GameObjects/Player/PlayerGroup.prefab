@@ -1052,7 +1052,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::KinematicCharacterController.Examples.PlayerMovement
   Jump: {fileID: -2099379676528639254, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   Move: {fileID: -1680190386980627800, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  Character: {fileID: 2395752269721306960}
+  _characterMovement: {fileID: 2395752269721306960}
 --- !u!114 &2395752269721306960
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1066,8 +1066,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::KinematicCharacterController.Examples.KinematicCharacterController
   Motor: {fileID: 6611360682564751779}
-  MaxStableMoveSpeed: 7
-  StableMovementSharpness: 3
+  MaxStableMoveSpeed: 9
+  StableMovementSharpness: 5
   StableBrakingSharpness: 7
   OrientationSharpness: 0
   OrientationMethod: 1
@@ -1119,7 +1119,7 @@ MonoBehaviour:
   MaxStableDenivelationAngle: 180
   InteractiveRigidbodyHandling: 1
   RigidbodyInteractionType: 2
-  SimulatedCharacterMass: 1
+  SimulatedCharacterMass: 2.5
   PreserveAttachedRigidbodyMomentum: 1
   HasPlanarConstraint: 1
   PlanarConstraintAxis: {x: 0, y: 0, z: 1}
@@ -2334,7 +2334,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerView
   _animator: {fileID: 6204110416612351225}
-  _characterController: {fileID: 2395752269721306960}
+  _characterMovementController: {fileID: 2395752269721306960}
   _target: {fileID: 1780723767030182125}
   _beamShooter: {fileID: 7303524183554285087}
 --- !u!1 &9074850061894592054

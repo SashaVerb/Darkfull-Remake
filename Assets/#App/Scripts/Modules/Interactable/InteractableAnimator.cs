@@ -6,6 +6,7 @@ namespace _App.Scripts.Modules.Interactable
     public class InteractableAnimator : MonoBehaviour
     {
         [SerializeField] private Animator _animator;
+        
         private static readonly int ActiveHash = Animator.StringToHash("Active");
         
         public void Activate()

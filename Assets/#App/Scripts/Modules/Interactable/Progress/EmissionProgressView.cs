@@ -1,5 +1,4 @@
 using DG.Tweening;
-using Modules.Interaction;
 using UnityEngine;
 
 namespace Modules.Interactable.Progress
@@ -10,7 +9,7 @@ namespace Modules.Interactable.Progress
         static readonly int EMISSION_PROPERTY_ID = Shader.PropertyToID("_EmissionColor");
         const string EMISSION_TOGGLE_PROPERTY_NAME = "_EMISSION";
         
-        [SerializeField] private InteractableWithProgress _progress;
+        [SerializeField] private Progress _progress;
         [ColorUsage(true, true)]
         [SerializeField] private Color _emissionColor = Color.white;
         
@@ -31,13 +30,13 @@ namespace Modules.Interactable.Progress
 
         private void OnEnable()
         {
-            _progress.OnProgressChange += Apply;
+            _progress.OnProgressChange.AddListener(Apply);
             Apply(_progress.CurrentProgress);
         }
 
         private void OnDisable()
         {
-            _progress.OnProgressChange -= Apply;
+            _progress.OnProgressChange.RemoveListener(Apply);
         }
 
         private void Apply(float progress)
@@ -48,7 +47,7 @@ namespace Modules.Interactable.Progress
 
         private void OnValidate()
         {
-            _progress = GetComponentInParent<InteractableWithProgress>();
+            _progress = GetComponentInParent<Progress>();
         }
     }
 }

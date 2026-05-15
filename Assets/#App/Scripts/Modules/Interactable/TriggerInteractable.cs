@@ -1,31 +1,17 @@
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace Modules.Interactable
 {
     [RequireComponent(typeof(Collider))]
-    public class TriggerInteractable : MonoBehaviour, IInteractable
+    public class TriggerInteractable : Interactable
     {
-        [field: SerializeField] public UnityEvent OnActivate { get; private set; }
-        [field: SerializeField] public UnityEvent OnDeactivate { get; private set; }
-
-        public bool IsActive => _isActive;
-
         private int _overlapCount;
-        private bool _isActive;
-
-        private void Reset()
-        {
-            var col = GetComponent<Collider>();
-            if (col != null)
-                col.isTrigger = true;
-        }
 
         private void OnTriggerEnter(Collider other)
         {
             _overlapCount++;
 
-            if (_isActive)
+            if (IsActive)
                 return;
 
             Activate();
@@ -41,21 +27,21 @@ namespace Modules.Interactable
             Deactivate();
         }
 
-        public void Activate()
+        public override void Activate()
         {
-            if (_isActive)
+            if (IsActive)
                 return;
 
-            _isActive = true;
+            IsActive = true;
             OnActivate?.Invoke();
         }
 
-        public void Deactivate()
+        public override void Deactivate()
         {
-            if (!_isActive)
+            if (!IsActive)
                 return;
 
-            _isActive = false;
+            IsActive = false;
             OnDeactivate?.Invoke();
         }
     }
