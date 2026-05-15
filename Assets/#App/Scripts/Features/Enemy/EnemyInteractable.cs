@@ -6,11 +6,11 @@ public class EnemyInteractable : MonoBehaviour
 {
     [SerializeField] private EnemyMovement _enemyMovement;
 
-    private IInteractable _interactable;
+    private Interactable _interactable;
     
     private void Awake()
     {
-        _interactable = GetComponent<IInteractable>();
+        _interactable = GetComponent<Interactable>();
     }
     
     private void OnEnable()

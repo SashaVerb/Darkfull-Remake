@@ -1,29 +1,22 @@
-using UnityEngine;
-using UnityEngine.Events;
-
 namespace Modules.Interactable
 {
-    public class InstantInteractable : MonoBehaviour, IInteractable
+    public class InstantInteractable : Interactable
     {
-        [field: SerializeField] public UnityEvent OnActivate { get; private set; }
-        [field: SerializeField] public UnityEvent OnDeactivate { get; private set; }
-
-        public bool IsActive => _isActive;
-
-        private bool _isActive;
-
-        public void Activate()
+        public override void Activate()
         {
-            _isActive = true;
+            if(IsActive)
+                return;
+            
+            IsActive = true;
             OnActivate?.Invoke();
         }
 
-        public void Deactivate()
+        public override void Deactivate()
         {
-            if (!_isActive)
+            if (!IsActive)
                 return;
 
-            _isActive = false;
+            IsActive = false;
             OnDeactivate?.Invoke();
         }
     }

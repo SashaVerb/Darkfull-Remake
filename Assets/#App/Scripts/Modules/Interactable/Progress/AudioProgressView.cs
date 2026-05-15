@@ -1,4 +1,3 @@
-using Modules.Interaction;
 using UnityEngine;
 
 namespace Modules.Interactable.Progress
@@ -6,7 +5,7 @@ namespace Modules.Interactable.Progress
     [RequireComponent(typeof(AudioSource))]
     public class AudioProgressView : MonoBehaviour
     {
-        [SerializeField] private InteractableWithProgress _progress;
+        [SerializeField] private Progress _progress;
         [SerializeField] private float _minVolume = 0f;
         [SerializeField] private float _maxVolume = 1f;
 
@@ -19,13 +18,13 @@ namespace Modules.Interactable.Progress
 
         private void OnEnable()
         {
-            _progress.OnProgressChange += Apply;
+            _progress.OnProgressChange.AddListener(Apply);
             Apply(_progress.CurrentProgress);
         }
 
         private void OnDisable()
         {
-            _progress.OnProgressChange -= Apply;
+            _progress.OnProgressChange.RemoveListener(Apply);
         }
 
         private void Apply(float progress)
@@ -35,7 +34,7 @@ namespace Modules.Interactable.Progress
 
         private void OnValidate()
         {
-            _progress = GetComponentInParent<InteractableWithProgress>();
+            _progress = GetComponentInParent<Progress>();
         }
     }
 }

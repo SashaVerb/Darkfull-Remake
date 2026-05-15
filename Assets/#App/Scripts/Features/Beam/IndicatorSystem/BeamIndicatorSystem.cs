@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using _App.Scripts.Modules.Interactable;
 using Features.Beam;
 using Features.Beam.ColorSystem;
 using Modules.Interactable;
@@ -10,9 +11,9 @@ public class BeamIndicatorSystem
     private readonly BeamConfig _config;
     private readonly IObjectResolver _resolver;
 
-    private HashSet<IInteractable> _activeIndicators = new();
+    private HashSet<Interactable> _activeIndicators = new();
 
-    private HashSet<IInteractable> _currentIndicators = new();
+    private HashSet<Interactable> _currentIndicators = new();
 
     private readonly Collider[] _overlapBuffer = new Collider[32];
 
@@ -29,7 +30,7 @@ public class BeamIndicatorSystem
 
             for (int i = 0; i < count; i++)
             {
-                if (_overlapBuffer[i].TryGetComponent(out IInteractable indicator))
+                if (_overlapBuffer[i].TryGetComponent(out Interactable indicator))
                 {
                     if (colors != null && _overlapBuffer[i].TryGetComponent(out BeamColorFilter colorFilter))
                     {
@@ -39,7 +40,7 @@ public class BeamIndicatorSystem
 
                     if (_currentIndicators.Add(indicator))
                     {
-                        if (_overlapBuffer[i].TryGetComponent(out IInteractionContext context))
+                        if (_overlapBuffer[i].TryGetComponent(out InteractionContext context))
                             context.Provide(_resolver);
 
                         indicator.Activate();
@@ -48,7 +49,7 @@ public class BeamIndicatorSystem
             }
         }
 
-        foreach (IInteractable indicator in _activeIndicators)
+        foreach (Interactable indicator in _activeIndicators)
         {
             if (!_currentIndicators.Contains(indicator))
             {
@@ -67,7 +68,7 @@ public class BeamIndicatorSystem
 
     public void Clear()
     {
-        foreach (IInteractable indicator in _activeIndicators)
+        foreach (Interactable indicator in _activeIndicators)
         {
             indicator.Deactivate();
         }

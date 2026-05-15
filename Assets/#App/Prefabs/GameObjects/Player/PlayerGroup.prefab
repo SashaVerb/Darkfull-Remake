@@ -1052,7 +1052,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::KinematicCharacterController.Examples.PlayerMovement
   Jump: {fileID: -2099379676528639254, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   Move: {fileID: -1680190386980627800, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  Character: {fileID: 2395752269721306960}
+  _characterMovement: {fileID: 2395752269721306960}
 --- !u!114 &2395752269721306960
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2334,7 +2334,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerView
   _animator: {fileID: 6204110416612351225}
-  _characterController: {fileID: 2395752269721306960}
+  _characterMovementController: {fileID: 2395752269721306960}
   _target: {fileID: 1780723767030182125}
   _beamShooter: {fileID: 7303524183554285087}
 --- !u!1 &9074850061894592054
