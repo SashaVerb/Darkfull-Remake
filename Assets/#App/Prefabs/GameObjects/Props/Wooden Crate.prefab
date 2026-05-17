@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5116656897135582422}
   - component: {fileID: 877482924300737807}
   - component: {fileID: 8353932195347547627}
-  - component: {fileID: 3997935739079452382}
+  - component: {fileID: 4976092389840122471}
   m_Layer: 0
   m_Name: Wooden Crate
   m_TagString: Untagged
@@ -68,8 +68,8 @@ Rigidbody:
   m_GameObject: {fileID: 1003893886525460965}
   serializedVersion: 5
   m_Mass: 2.5
-  m_LinearDamping: 0
-  m_AngularDamping: 0.1
+  m_LinearDamping: 0.5
+  m_AngularDamping: 0.3
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -86,14 +86,14 @@ Rigidbody:
   m_Interpolate: 2
   m_Constraints: 56
   m_CollisionDetection: 0
---- !u!64 &3997935739079452382
-MeshCollider:
+--- !u!65 &4976092389840122471
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1003893886525460965}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 8ff41bd2f342c294ab22349ead458aaf, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -104,10 +104,9 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -1560121968460818604, guid: ebf5592d837d64a4cad6371dc9527e3e, type: 3}
+  serializedVersion: 3
+  m_Size: {x: 1.4875221, y: 1.509803, z: 1.4954844}
+  m_Center: {x: -0.004600525, y: 0.7515825, z: -0.0007185936}
 --- !u!1 &3789367169521099310
 GameObject:
   m_ObjectHideFlags: 0

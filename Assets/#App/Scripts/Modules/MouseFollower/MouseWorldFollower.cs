@@ -20,7 +20,7 @@ namespace Modules.MouseFollower
         [SerializeField] private bool _limitToCircle;
         [SerializeField] private float _limitRadius;
 
-        private void Update()
+        private void LateUpdate()
         {
             Vector3? worldPosition = GetMouseWorldPosition();
             if (worldPosition.HasValue)

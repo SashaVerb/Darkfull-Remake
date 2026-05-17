@@ -66,7 +66,7 @@ namespace Features.PlayerLogic
             StopBeam();
         }
         
-        private void Update()
+        private void LateUpdate()
         {
             if (!_isShooting)
                 return;
