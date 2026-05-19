@@ -9,20 +9,9 @@ namespace Modules.Interactable
     public class Teleporter : MonoBehaviour
     {
         [SerializeField] private InteractionContext _interactionContext;
-        [SerializeField] private Interactable _interactable;
         [SerializeField] private Transform _overrideTeleportDestination;
 
         private Vector3 Destination => _overrideTeleportDestination != null ? _overrideTeleportDestination.position : transform.position;
-
-        private void OnEnable()
-        {
-            _interactable.OnActivate.AddListener(Teleport);
-        }
-
-        private void OnDisable()
-        {
-            _interactable.OnActivate.RemoveListener(Teleport);
-        }
 
         public void Teleport()
         {
@@ -44,7 +33,6 @@ namespace Modules.Interactable
         private void OnValidate()
         {
             _interactionContext = GetComponentInParent<InteractionContext>();
-            _interactable = GetComponentInParent<Interactable>();
         }
     }
 }
