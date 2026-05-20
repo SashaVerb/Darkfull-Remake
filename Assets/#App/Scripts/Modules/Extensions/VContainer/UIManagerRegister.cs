@@ -6,14 +6,45 @@ namespace _App.Scripts.Modules.Extensions.VContainer
 {
     public static class UIManagerRegister
     {
-        public static void RegisterUI<T>(this IContainerBuilder builder, T uiPanel) where T : UIPanel
+        public class UIRegistrationBuilder<T> where T : UIPanel
+        {
+            private readonly IContainerBuilder _builder;
+
+            public UIRegistrationBuilder(IContainerBuilder builder)
+            {
+                _builder = builder;
+            }
+
+            public void NonLazy()
+            {
+                _builder.RegisterBuildCallback(resolver => resolver.Resolve<T>());
+            }
+        }
+
+        public static UIRegistrationBuilder<T> RegisterUI<T>(this IContainerBuilder builder, T uiPanelPrefab) where T : UIPanel
         {
             builder.Register(resolver =>
             {
-                var instance = UIManager.Instantiate(uiPanel);
+                var wasActive = uiPanelPrefab.gameObject.activeSelf;
+                if (wasActive)
+                {
+                    uiPanelPrefab.gameObject.SetActive(false);
+                }
+
+                var instance = UIManager.Instantiate(uiPanelPrefab);
+                
                 resolver.InjectGameObject(instance.gameObject);
+                
+                if (wasActive)
+                {
+                    uiPanelPrefab.gameObject.SetActive(true);
+                    instance.gameObject.SetActive(true);
+                }
+                
                 return instance;
-            }, Lifetime.Singleton);
+            }, Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
+
+            return new UIRegistrationBuilder<T>(builder);
         }
     }
 }

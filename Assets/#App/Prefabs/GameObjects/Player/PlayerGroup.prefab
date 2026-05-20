@@ -1294,6 +1294,10 @@ MonoBehaviour:
   _target: {fileID: 5476327274421250129}
   _beamColorPickerView: {fileID: 2159329521992204453, guid: 7ccc7a373d8a0cb46a1d50e1f17af669, type: 3}
   _motor: {fileID: 6611360682564751779}
+  _pausableComponents:
+  - {fileID: 7303524183554285087}
+  - {fileID: 4364148730455516077}
+  - {fileID: 3786238914039027208}
 --- !u!1 &4928573036048951842
 GameObject:
   m_ObjectHideFlags: 0

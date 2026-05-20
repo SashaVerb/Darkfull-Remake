@@ -306,6 +306,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Features.Beam.ColorSystem.BeamColorPickerView
   _animator: {fileID: 11400000, guid: 2e40c0cf50f4d69499b3f6e8ff72d0b4, type: 2}
+  _activeOnAwake: 0
   <CanvasGroupComponent>k__BackingField: {fileID: 7196658844453383440}
   bindings:
   - Button: {fileID: 5710421791459598589}

@@ -2539,6 +2539,8 @@ MonoBehaviour:
   autoRun: 1
   autoInjectGameObjects: []
   _levelComplete: {fileID: 817111247}
+  pauseViewPrefab: {fileID: 6327665636795861635, guid: 38ab28a37fe18744db858697b194868c, type: 3}
+  _pauseAction: {fileID: -604304361492561018, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   _camera: {fileID: 1558529376}
   _cinemachineCamera: {fileID: 1558529375}
   _cameraFollowsPlayer: 1

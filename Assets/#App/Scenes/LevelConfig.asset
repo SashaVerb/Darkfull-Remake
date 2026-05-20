@@ -15,3 +15,5 @@ MonoBehaviour:
   _levels:
   - _sceneAsset: {fileID: 102900000, guid: a7cb60b07be937f4cab963b61dacbf61, type: 3}
   - _sceneAsset: {fileID: 102900000, guid: 5855360dd604f5b488e4676440ff3582, type: 3}
+  _scenes:
+  - _sceneAsset: {fileID: 102900000, guid: 5855360dd604f5b488e4676440ff3582, type: 3}

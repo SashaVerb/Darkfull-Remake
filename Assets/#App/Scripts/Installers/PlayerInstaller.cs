@@ -1,4 +1,5 @@
 using _App.Scripts.Features.Death;
+using _App.Scripts.Features.Pause;
 using _App.Scripts.Modules.Extensions.VContainer;
 using Features.Beam.ColorSystem;
 using Features.PlayerLogic;
@@ -20,7 +21,8 @@ namespace _App.Scripts.Installers
         [SerializeField] private Transform _target;
         [SerializeField] private BeamColorPickerView _beamColorPickerView;
         [SerializeField] private KinematicCharacterMotor _motor;
-
+        [SerializeField] private MonoBehaviour[] _pausableComponents;
+        
         protected override void Configure(IContainerBuilder builder)
         {
             Install(builder);
@@ -42,6 +44,9 @@ namespace _App.Scripts.Installers
             builder.RegisterInstance(_playerHealth);
             builder.RegisterInstance(_motor);
             builder.RegisterComponent(_beamShooter);
+
+            builder.Register<IPausable, PausableComponents>(Lifetime.Scoped).WithParameter(_pausableComponents);
+            
             builder.Register<PlayerFacade>(Lifetime.Singleton).WithParameter(_motor.gameObject);
         }
     }

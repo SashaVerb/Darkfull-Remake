@@ -21,12 +21,16 @@ namespace _App.Scripts.Modules.Extensions.VContainer
             var instance = Object.Instantiate(prefab, position, rotation);
             instance.Install(builder);
 
+            if (wasActive)
+            {
+                prefab.gameObject.SetActive(true);
+            }
+            
             builder.RegisterBuildCallback(resolver =>
             {
                 resolver.InjectGameObject(instance.gameObject);
                 if (wasActive)
                 {
-                    prefab.gameObject.SetActive(true);
                     instance.gameObject.SetActive(true);
                 }
             });

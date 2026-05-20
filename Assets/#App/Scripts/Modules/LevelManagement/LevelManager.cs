@@ -40,9 +40,9 @@ namespace _App.Scripts.Modules.LevelManagement
             return LoadLevel(nextIndex);
         }
 
-        public UniTask FadeOut() => _transition.Show();
+        public UniTask FadeOut() => _transition.ShowAsync();
 
-        public UniTask FadeIn() => _transition.Hide();
+        public UniTask FadeIn() => _transition.HideAsync();
 
         public UniTask ResetLevel()
         {
@@ -75,14 +75,48 @@ namespace _App.Scripts.Modules.LevelManagement
 
             try
             {
-                await _transition.Show().AttachExternalCancellation(token);
+                await _transition.ShowAsync().AttachExternalCancellation(token);
 
                 _lastIndex = _currentIndex;
                 _currentIndex = index;
 
                 await SceneManager.LoadSceneAsync(_config.Levels[index].Name).ToUniTask(cancellationToken: token);
 
-                await _transition.Hide().AttachExternalCancellation(token);
+                await _transition.HideAsync().AttachExternalCancellation(token);
+
+                _isLoading = false;
+                OnLevelReady?.Invoke();
+            }
+            catch (OperationCanceledException)
+            {
+                _isLoading = false;
+            }
+        }
+        
+        public async UniTask LoadScene(string sceneName)
+        {
+            if (!_config.ContainsScene(sceneName))
+            {
+                throw new ArgumentException($"Scene {sceneName} not found in config");
+            }
+            
+            _loadCts?.Cancel();
+            _loadCts?.Dispose();
+            _loadCts = new CancellationTokenSource();
+            var token = _loadCts.Token;
+
+            _isLoading = true;
+
+            try
+            {
+                await _transition.ShowAsync().AttachExternalCancellation(token);
+
+                _lastIndex = _currentIndex;
+                _currentIndex = SceneManager.GetSceneByName(sceneName).buildIndex;
+
+                await SceneManager.LoadSceneAsync(sceneName).ToUniTask(cancellationToken: token);
+
+                await _transition.HideAsync().AttachExternalCancellation(token);
 
                 _isLoading = false;
                 OnLevelReady?.Invoke();
