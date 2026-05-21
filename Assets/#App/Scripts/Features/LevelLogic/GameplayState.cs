@@ -1,21 +1,37 @@
+using _App.Scripts.Modules.LevelManagement;
+using Cysharp.Threading.Tasks;
 using Features.PlayerLogic;
-using UnityEngine;
 using UnityHFSM;
 
 namespace _App.Scripts.Features.LevelLogic
 {
     public class GameplayState : StateBase<LevelState>
     {
+        private readonly LevelManager _levelManager;
         private readonly PlayerFacade _playerFacade;
-
-        public GameplayState(PlayerFacade playerFacade) : base(needsExitTime: false)
+        private readonly PlayerSpawn _playerSpawn;
+        
+        public GameplayState(PlayerFacade playerFacade, LevelManager levelManager, PlayerSpawn playerSpawn) : base(needsExitTime: false)
         {
             _playerFacade = playerFacade;
+            _levelManager = levelManager;
+            _playerSpawn = playerSpawn;
         }
 
         public override void OnEnter()
         {
-            Debug.Log("GameplayState");
+            SpawnLogic().Forget();
+        }
+
+        private async UniTaskVoid SpawnLogic()
+        {
+            _playerFacade.IsActive = false;
+            
+            await _levelManager.FadeIn();
+
+            _playerFacade.IsActive = true;
+            _playerFacade.Teleport(_playerSpawn.GetSpawnPosition(), false);
+            _playerFacade.Appear();
             _playerFacade.Unfreeze();
         }
     }

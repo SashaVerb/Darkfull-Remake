@@ -2,12 +2,13 @@ using System.Collections.Generic;
 using Features.Beam;
 using LayerMaskExtensions;
 using UnityEngine;
-using UnityEngine.Pool;
 
 public class BeamPathCreator
 {
     private readonly BeamConfig _config;
-
+    
+    private float distanceLeft;
+    
     public BeamPathCreator(BeamConfig config)
     {
         _config = config;
@@ -22,7 +23,7 @@ public class BeamPathCreator
 
         Vector3 currentOrigin = startPoint;
         Vector3 currentDirection = direction.normalized;
-        float distanceLeft = _config.MaxDistance;
+        distanceLeft = _config.MaxDistance;
 
         while (distanceLeft > 0f)
         {

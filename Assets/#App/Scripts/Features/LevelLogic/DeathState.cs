@@ -1,5 +1,6 @@
-using _App.Scripts.Features.Death;
+using System.Collections.Generic;
 using _App.Scripts.Modules.LevelManagement;
+using _App.Scripts.Modules.Restartable;
 using Cysharp.Threading.Tasks;
 using Features.PlayerLogic;
 using UnityHFSM;
@@ -10,34 +11,36 @@ namespace _App.Scripts.Features.LevelLogic
     {
         private readonly LevelManager _levelManager;
         private readonly PlayerFacade _playerFacade;
-        private readonly PlayerHealth _playerHealth;
         private readonly PlayerSpawn _playerSpawn;
+        private readonly IReadOnlyList<Restartable> _restartables;
 
-        public DeathState(LevelManager levelManager, PlayerFacade playerFacade, PlayerHealth playerHealth, PlayerSpawn playerSpawn)
+        public DeathState(LevelManager levelManager, PlayerFacade playerFacade, PlayerSpawn playerSpawn, IReadOnlyList<Restartable> restartables)
             : base(needsExitTime: true)
         {
             _levelManager = levelManager;
             _playerFacade = playerFacade;
-            _playerHealth = playerHealth;
             _playerSpawn = playerSpawn;
+            _restartables = restartables;
         }
 
         public override void OnEnter()
         {
-            _playerFacade.Freeze();
-            _playerFacade.Disappear();
             RespawnAsync().Forget();
         }
 
         private async UniTaskVoid RespawnAsync()
         {
+            _playerFacade.Freeze();
+            _playerFacade.Disappear();
             _playerSpawn.ReportDeath(_playerFacade.Position);
+            
             await _levelManager.FadeOut();
-            _playerFacade.Teleport(_playerSpawn.GetSpawnPosition(), false);
-            _playerHealth.Revive();
-            _playerFacade.Appear();
-            await _levelManager.FadeIn();
-            _playerFacade.Unfreeze();
+
+            foreach (var restartable in _restartables)
+            {
+                restartable.ResetState();
+            }
+
             fsm.StateCanExit();
         }
     }

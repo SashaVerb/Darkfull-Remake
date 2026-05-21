@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Features.Beam;
 using Features.Beam.ColorSystem;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using VContainer;
 
@@ -9,6 +10,9 @@ namespace Features.PlayerLogic
 {
     public class BeamShooter : MonoBehaviour
     {
+        public UnityEvent OnBeamStarted;
+        public UnityEvent OnBeamStopped;
+        
         [SerializeField] private BeamColor _startColor;
         [SerializeField] private InputActionReference _shootAction;
         [SerializeField] private InputActionReference _showPickerAction;
@@ -94,12 +98,19 @@ namespace Features.PlayerLogic
             _colorPickerView.Hide();
         }
         
-        private void OnShootStarted(InputAction.CallbackContext _) => _isShooting = true;
+        private void OnShootStarted(InputAction.CallbackContext _) => StartBeam();
+
+        private void StartBeam()
+        {
+            OnBeamStarted.Invoke();
+            _isShooting = true;
+        }
 
         private void OnShootCanceled(InputAction.CallbackContext _) => StopBeam();
-
+        
         private void StopBeam()
         {
+            OnBeamStopped.Invoke();
             _isShooting = false;
             _beamView.Clear();
             _beamIndicatorSystem.Clear();

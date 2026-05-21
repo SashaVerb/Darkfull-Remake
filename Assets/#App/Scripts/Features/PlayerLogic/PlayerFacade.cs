@@ -16,6 +16,12 @@ namespace Features.PlayerLogic
         private readonly KinematicCharacterMotor _motor;
         private CancellationTokenSource _beamCts;
 
+        public bool IsActive
+        {
+            get => _player.activeSelf;
+            set => _player.SetActive(value);
+        }
+        
         public Vector3 Position => _player.transform.position;
         
         public PlayerFacade(PlayerMovement movement, BeamShooter beamShooter, PlayerHealth playerHealth, KinematicCharacterMotor motor, GameObject player)
@@ -48,6 +54,7 @@ namespace Features.PlayerLogic
         public void Appear()
         {
             _player.SetActive(true);
+            _playerHealth.Revive();
         }
 
         public void Kill()

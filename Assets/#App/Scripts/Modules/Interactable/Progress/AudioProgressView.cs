@@ -29,6 +29,12 @@ namespace Modules.Interactable.Progress
 
         private void Apply(float progress)
         {
+            if(progress > 0f && !_audioSource.isPlaying)
+                _audioSource.Play();
+            
+            if(Mathf.Approximately(progress, 0f) && _audioSource.isPlaying)
+                _audioSource.Stop();
+            
             _audioSource.volume = Mathf.Lerp(_minVolume, _maxVolume, progress);
         }
 
