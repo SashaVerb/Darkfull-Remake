@@ -20,6 +20,9 @@ MonoBehaviour:
   <ReflectableMask>k__BackingField:
     serializedVersion: 2
     m_Bits: 1
+  <RefractableMask>k__BackingField:
+    serializedVersion: 2
+    m_Bits: 16
   <IndicatorDetectionRadius>k__BackingField: 0.25
   <IndicatorLayerMask>k__BackingField:
     serializedVersion: 2
