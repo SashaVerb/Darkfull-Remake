@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class DragableObjectSound : MonoBehaviour
@@ -10,15 +11,13 @@ public class DragableObjectSound : MonoBehaviour
     [SerializeField] private float hitSoundMinInterval = 1f;
 
     private float lastHitTime = 0f;
-
-    private void Awake()
-    {
-        dragSoundSource.Play();
-        dragSoundSource.Pause();
-    }
-
+    
+    private readonly HashSet<int> _currentColliders = new(); 
+    
     private void OnCollisionEnter(Collision collision)
     {
+        _currentColliders.Add(collision.gameObject.GetInstanceID());
+        
         if (collision.relativeVelocity.magnitude >= speedForCrashSound &&
         Time.time >= lastHitTime + hitSoundMinInterval)
         {
@@ -31,16 +30,21 @@ public class DragableObjectSound : MonoBehaviour
     {
         if (collision.relativeVelocity.magnitude >= speedForDragSound)
         {
-            dragSoundSource.UnPause();
+            if(!dragSoundSource.isPlaying)
+                dragSoundSource.Play();
         }
         else
         {
-            dragSoundSource.Pause();
+            if(dragSoundSource.isPlaying)
+                dragSoundSource.Stop();
         }
     }
 
     private void OnCollisionExit(Collision collision)
     {
-        dragSoundSource.Pause();
+        _currentColliders.Remove(collision.gameObject.GetInstanceID());
+        
+        if(_currentColliders.Count == 0)
+            dragSoundSource.Stop();
     }
 }

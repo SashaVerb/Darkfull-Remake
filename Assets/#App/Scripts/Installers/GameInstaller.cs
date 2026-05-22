@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using _App.Scripts.Features.LevelLogic;
 using _App.Scripts.Features.Pause;
+using _App.Scripts.Modules.Restartable;
 using _App.Scripts.Modules.Extensions.VContainer;
 using Features.PlayerLogic;
 using KinematicCharacterController;
@@ -27,6 +28,9 @@ namespace _App.Scripts.Installers
         [Header("Player")]
         [SerializeField] private PlayerInstaller _playerPrefab;
         [SerializeField] private List<Transform> _spawnPoints;
+        [Space]
+        [Header("Restartables")]
+        [SerializeField] private List<Restartable> _restartables;
         
         protected override void Configure(IContainerBuilder builder)
         {
@@ -46,6 +50,7 @@ namespace _App.Scripts.Installers
             builder.RegisterInstance(_camera);
             builder.RegisterInstance(_cinemachineCamera);
             builder.RegisterInstance(_levelComplete);
+            builder.RegisterInstance(_restartables).As<IReadOnlyList<Restartable>>();
         }
 
         private void SetPlayer(IContainerBuilder builder)

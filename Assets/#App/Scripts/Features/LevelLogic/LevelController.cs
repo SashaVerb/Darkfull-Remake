@@ -1,6 +1,5 @@
 using System;
 using _App.Scripts.Features.Death;
-using UnityEngine.InputSystem;
 using UnityHFSM;
 using VContainer.Unity;
 
@@ -33,7 +32,7 @@ namespace _App.Scripts.Features.LevelLogic
 
         public void Initialize()
         {
-            _playerHealth.OnDeath += HandlePlayerDeath;
+            _playerHealth.OnDeath.AddListener(HandlePlayerDeath);
             _levelComplete.OnLevelComplete += HandleLevelComplete;
             
             _fsm.Init();
@@ -46,7 +45,7 @@ namespace _App.Scripts.Features.LevelLogic
         
         public void Dispose()
         {
-            _playerHealth.OnDeath -= HandlePlayerDeath;
+            _playerHealth.OnDeath.RemoveListener(HandlePlayerDeath);
             _levelComplete.OnLevelComplete -= HandleLevelComplete;
         }
 

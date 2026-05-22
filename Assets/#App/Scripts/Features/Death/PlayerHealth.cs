@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace _App.Scripts.Features.Death
 {
@@ -11,7 +12,7 @@ namespace _App.Scripts.Features.Death
         public float CurrentHp { get; private set; }
         public bool IsDead { get; private set; } = false;
 
-        public event Action OnDeath;
+        public UnityEvent OnDeath;
         
         private float _timeSinceLastDamage;
 
