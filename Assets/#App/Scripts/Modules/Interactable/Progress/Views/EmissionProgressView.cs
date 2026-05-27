@@ -1,9 +1,8 @@
-using DG.Tweening;
+using System.Linq;
 using UnityEngine;
 
 namespace Modules.Interactable.Progress
 {
-    [RequireComponent(typeof(Renderer))]
     public class EmissionProgressView : MonoBehaviour
     {
         static readonly int EMISSION_PROPERTY_ID = Shader.PropertyToID("_EmissionColor");
@@ -12,19 +11,20 @@ namespace Modules.Interactable.Progress
         [SerializeField] private Progress _progress;
         [ColorUsage(true, true)]
         [SerializeField] private Color _emissionColor = Color.white;
-        
-        private Renderer _renderer;
-        private Material _material;
-        private Tween _currentTween;
+        [SerializeField] private Renderer[] _renderers;
+
+        private Material[] _materials;
 
         private void Awake()
         {
-            _renderer = GetComponent<Renderer>();
-            _material = _renderer.material;
-            
-            if (!_material.IsKeywordEnabled(EMISSION_TOGGLE_PROPERTY_NAME))
+            _materials = _renderers.Select(renderer => renderer.material).ToArray();
+
+            foreach (var material in _materials)
             {
-                _material.EnableKeyword(EMISSION_TOGGLE_PROPERTY_NAME);
+                if (!material.IsKeywordEnabled(EMISSION_TOGGLE_PROPERTY_NAME))
+                {
+                    material.EnableKeyword(EMISSION_TOGGLE_PROPERTY_NAME);
+                }
             }
         }
 
@@ -42,12 +42,26 @@ namespace Modules.Interactable.Progress
         private void Apply(float progress)
         {
             var lerpedColor = Color.Lerp(Color.black, _emissionColor, progress);
-            _material.SetColor(EMISSION_PROPERTY_ID, lerpedColor);
+            
+            foreach (var material in _materials)
+            {
+                material.SetColor(EMISSION_PROPERTY_ID, lerpedColor);
+            }
         }
 
         private void OnValidate()
         {
-            _progress = GetComponentInParent<Progress>();
+            if(_progress == null)
+                _progress = GetComponentInParent<Progress>();
+            
+            if(_renderers == null)
+                _renderers = GetComponentsInChildren<Renderer>();
+        }
+
+        [ContextMenu("Get Renderers")]
+        private void GetRenderers()
+        {
+            _renderers = GetComponentsInChildren<Renderer>();
         }
     }
 }

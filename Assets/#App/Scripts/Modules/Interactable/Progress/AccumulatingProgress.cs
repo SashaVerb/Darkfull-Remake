@@ -6,7 +6,7 @@ namespace Modules.Interactable.Progress
     {
         [SerializeField] private float _duration = 1f;
 
-        public float CurrentProgress => Mathf.Clamp01(_elapsed / _duration);
+        public override float CurrentProgress => Mathf.Clamp01(_elapsed / _duration);
 
         private float _elapsed;
         private float _prevProgress;

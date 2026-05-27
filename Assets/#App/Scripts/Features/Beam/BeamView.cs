@@ -19,8 +19,8 @@ public class BeamView
 
     public void Display(in List<BeamPathPoint> points, in List<BeamColor> colors)
     {
-        int segmentCount = points.Count - 1;
-
+        int segmentCount = Mathf.Max(points.Count - 1, 0);
+        
         for (int i = _activeSegments.Count - 1; i >= segmentCount; i--)
         {
             _pool.Release(_activeSegments[i]);

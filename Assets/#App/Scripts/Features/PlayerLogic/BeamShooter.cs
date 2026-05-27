@@ -17,7 +17,7 @@ namespace Features.PlayerLogic
         [SerializeField] private InputActionReference _shootAction;
         [SerializeField] private InputActionReference _showPickerAction;
         
-        public bool IsShooting => _isShooting;
+        public bool IsShooting => !Mathf.Approximately(_pathCreator.DistanceLeft, 0f);
         
         private Transform _target;
         private BeamPathCreator _pathCreator;
@@ -67,22 +67,17 @@ namespace Features.PlayerLogic
             
             _colorPickerView.OnColorPicked -= OnColorPicked;
 
+            _pathCreator.DistanceLeft = 0f;
             StopBeam();
         }
         
         private void LateUpdate()
         {
-            if (!_isShooting)
-                return;
-
             Vector3 direction = _target.position - transform.position;
 
-            if (direction.sqrMagnitude < 0.001f)
-                return;
-            
             _pathPoints.Clear();
             _pathColors.Clear();
-            _pathCreator.Emit(transform.position, direction, ref _pathPoints);
+            _pathCreator.Emit(transform.position, direction, _isShooting, ref _pathPoints);
             _beamColorSystem.GetColors(_pathPoints, _startColor, ref _pathColors);
             _beamIndicatorSystem.Check(_pathPoints, _pathColors);
             _beamView.Display(_pathPoints, _pathColors);

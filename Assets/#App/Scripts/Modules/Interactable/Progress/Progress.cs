@@ -9,6 +9,6 @@ namespace Modules.Interactable.Progress
         [field:SerializeField] public UnityEvent<float> OnProgressMax { get; private set; }
         [field:SerializeField] public UnityEvent<float> OnProgressMin { get; private set; }
 
-        public float CurrentProgress { get; protected set; }
+        public virtual float CurrentProgress { get; protected set; }
     }
 }

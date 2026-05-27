@@ -2,18 +2,19 @@ using System.Collections.Generic;
 using Features.Beam;
 using LayerMaskExtensions;
 using UnityEngine;
-using UnityEngine.Pool;
 
 public class BeamPathCreator
 {
+    public float DistanceLeft { get; set; }
+    
     private readonly BeamConfig _config;
-
+    
     public BeamPathCreator(BeamConfig config)
     {
         _config = config;
     }
 
-    public void Emit(Vector3 startPoint, Vector3 direction, ref List<BeamPathPoint> points)
+    public void Emit(Vector3 startPoint, Vector3 direction, bool isShooting, ref List<BeamPathPoint> points)
     {
         points ??= new List<BeamPathPoint>();
         points.Clear();
@@ -22,23 +23,36 @@ public class BeamPathCreator
 
         Vector3 currentOrigin = startPoint;
         Vector3 currentDirection = direction.normalized;
-        float distanceLeft = _config.MaxDistance;
+
+        if (isShooting)
+        {
+            DistanceLeft += _config.Speed * Time.deltaTime;
+        }
+        else
+        {
+            DistanceLeft -= _config.Speed * Time.deltaTime;
+        }
+        
+        DistanceLeft = Mathf.Clamp(DistanceLeft, 0f, _config.MaxDistance);
+
+        float currenctDistanceLeft = DistanceLeft;
+        
         float currentIOR = 1f;
 
-        while (distanceLeft > 0f)
+        while (currenctDistanceLeft > 0f)
         {
             bool prevBackfaces = Physics.queriesHitBackfaces;
             Physics.queriesHitBackfaces = currentIOR > 1f;
 
             Ray ray = new Ray(currentOrigin + currentDirection * 0.01f, currentDirection);
-            bool didHit = Physics.Raycast(ray, out RaycastHit hit, distanceLeft, _config.RaycastMask.value);
+            bool didHit = Physics.Raycast(ray, out RaycastHit hit, currenctDistanceLeft, _config.RaycastMask.value);
 
             Physics.queriesHitBackfaces = prevBackfaces;
 
             if (didHit)
             {
                 points.Add(new BeamPathPoint(hit.point, hit));
-                distanceLeft -= hit.distance;
+                currenctDistanceLeft -= hit.distance;
 
                 if (_config.RefractableMask.Contains(hit.collider.gameObject) &&
                     hit.collider.TryGetComponent<RefractiveObject>(out var refractive))
@@ -58,17 +72,18 @@ public class BeamPathCreator
                 }
                 else
                 {
+                    DistanceLeft -= currenctDistanceLeft;
                     break;
                 }
             }
             else
             {
-                points.Add(new BeamPathPoint(currentOrigin + currentDirection * distanceLeft));
+                points.Add(new BeamPathPoint(currentOrigin + currentDirection * currenctDistanceLeft));
                 break;
             }
         }
     }
-
+    
     private static Vector3 Refract(Vector3 incident, Vector3 normal, float eta)
     {
         float cosI = Vector3.Dot(-incident, normal);

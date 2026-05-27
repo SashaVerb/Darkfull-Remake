@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1941134039551426294}
+  - component: {fileID: 503389555438092159}
   m_Layer: 2
   m_Name: View
   m_TagString: Untagged
@@ -32,6 +33,20 @@ Transform:
   - {fileID: 6010732719289160789}
   m_Father: {fileID: 6031539320231450115}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &503389555438092159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 258648524019711320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15c82c19e527c774dafa3167a516680f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyView
+  _animator: {fileID: 399207775603887663}
+  _characterMovementController: {fileID: 2545027746509562512}
 --- !u!1 &4158217308139568370
 GameObject:
   m_ObjectHideFlags: 0
@@ -159,7 +174,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f2533df36f1ed944bf62ca65e11e6e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::KinematicCharacterController.Examples.EnemyMovement
-  Character: {fileID: 2545027746509562512}
+  _characterMovement: {fileID: 2545027746509562512}
   StopDistance: 0.2
 --- !u!114 &2545027746509562512
 MonoBehaviour:
@@ -176,6 +191,7 @@ MonoBehaviour:
   Motor: {fileID: 4302337027661216543}
   MaxStableMoveSpeed: 2
   StableMovementSharpness: 1
+  StableBrakingSharpness: 15
   OrientationSharpness: 0
   OrientationMethod: 1
   MaxAirMoveSpeed: 10
@@ -393,10 +409,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2faa610713d3b3c439473daa55e8c60a, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 4147724769208428851}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2faa610713d3b3c439473daa55e8c60a, type: 3}
 --- !u!95 &399207775603887663 stripped
 Animator:
@@ -408,22 +421,3 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 2faa610713d3b3c439473daa55e8c60a, type: 3}
   m_PrefabInstance: {fileID: 6116118034516095934}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &6350560510747610863 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 2faa610713d3b3c439473daa55e8c60a, type: 3}
-  m_PrefabInstance: {fileID: 6116118034516095934}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &4147724769208428851
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6350560510747610863}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15c82c19e527c774dafa3167a516680f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyView
-  _animator: {fileID: 399207775603887663}
-  _characterController: {fileID: 2545027746509562512}
