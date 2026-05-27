@@ -966,6 +966,37 @@ Transform:
   - {fileID: 7950494892511073969}
   m_Father: {fileID: 5389441785492644029}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3949358939044500092
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7231781467649182872}
+  m_Layer: 2
+  m_Name: BeamEnd
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7231781467649182872
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3949358939044500092}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1780723767030182125}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4218786655513694196
 GameObject:
   m_ObjectHideFlags: 0
@@ -1437,6 +1468,7 @@ MonoBehaviour:
   _beamConfig: {fileID: 11400000, guid: 558449ab01082ea41a96b35a8f5a2fc6, type: 2}
   _beamParent: {fileID: 1780723767030182125}
   _target: {fileID: 5476327274421250129}
+  _beamEnd: {fileID: 7231781467649182872}
   _beamColorPickerView: {fileID: 2159329521992204453, guid: 7ccc7a373d8a0cb46a1d50e1f17af669, type: 3}
   _motor: {fileID: 6611360682564751779}
   _pausableComponents:
@@ -2679,7 +2711,8 @@ Transform:
   m_LocalPosition: {x: 0, y: -1.7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 7231781467649182872}
   m_Father: {fileID: 6664430719827001581}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7303524183554285087

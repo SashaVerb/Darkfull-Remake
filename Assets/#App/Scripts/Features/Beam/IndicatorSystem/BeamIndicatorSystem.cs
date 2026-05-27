@@ -53,6 +53,9 @@ public class BeamIndicatorSystem
         {
             if (!_currentIndicators.Contains(indicator))
             {
+                if (indicator.TryGetComponent(out InteractionContext context))
+                    context.Revoke();
+    
                 indicator.Deactivate();
             }
         }
@@ -70,6 +73,9 @@ public class BeamIndicatorSystem
     {
         foreach (Interactable indicator in _activeIndicators)
         {
+            if (indicator.TryGetComponent(out InteractionContext context))
+                context.Revoke();
+
             indicator.Deactivate();
         }
 

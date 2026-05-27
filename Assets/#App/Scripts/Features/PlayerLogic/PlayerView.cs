@@ -34,7 +34,7 @@ public class PlayerView : MonoBehaviour
     {
         if (_animator != null && _target != null)
         {
-            if (_beamShooter.IsShooting)
+            if (_beamShooter.IsEmiting)
             {
                 _animator.SetIKPositionWeight(AvatarIKGoal.LeftHand, 1f);
                 _animator.SetIKPositionWeight(AvatarIKGoal.RightHand, 1f);

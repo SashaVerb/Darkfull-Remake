@@ -17,20 +17,23 @@ MonoBehaviour:
   <Speed>k__BackingField: 30
   <RaycastMask>k__BackingField:
     serializedVersion: 2
-    m_Bits: 371
+    m_Bits: 883
   <ReflectableMask>k__BackingField:
     serializedVersion: 2
     m_Bits: 1
+  <TransparentMask>k__BackingField:
+    serializedVersion: 2
+    m_Bits: 512
   <RefractableMask>k__BackingField:
     serializedVersion: 2
     m_Bits: 16
   <DistanceExtenderMask>k__BackingField:
     serializedVersion: 2
     m_Bits: 256
-  <IndicatorDetectionRadius>k__BackingField: 0.25
+  <IndicatorDetectionRadius>k__BackingField: 0.5
   <IndicatorLayerMask>k__BackingField:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 576
   ColorTag: Color
   <ColorBindings>k__BackingField:
   - Material: {fileID: 2100000, guid: 02752aa4e662bca45a3e3005aad802b3, type: 2}

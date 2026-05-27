@@ -7,7 +7,7 @@ public class BeamPathCreator
 {
     public float TargetDistanceLeft { get; set; }
     public float ActiveDistanceLeft { get; set; }
-    
+  
     private readonly BeamConfig _config;
     
     private HashSet<DistanceExtenderObject> _activeExtenders = new();
@@ -95,6 +95,10 @@ public class BeamPathCreator
                 {
                     currentOrigin = hit.point;
                     currentDirection = Vector3.Reflect(currentDirection, hit.normal);
+                }
+                else if (_config.TransparentMask.Contains(hit.collider.gameObject))
+                {
+                    currentOrigin = hit.point;
                 }
                 else
                 {

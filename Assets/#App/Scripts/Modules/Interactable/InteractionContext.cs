@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using VContainer;
 
 namespace _App.Scripts.Modules.Interactable
