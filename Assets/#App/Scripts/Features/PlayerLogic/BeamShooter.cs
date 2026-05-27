@@ -17,7 +17,7 @@ namespace Features.PlayerLogic
         [SerializeField] private InputActionReference _shootAction;
         [SerializeField] private InputActionReference _showPickerAction;
         
-        public bool IsShooting => !Mathf.Approximately(_pathCreator.DistanceLeft, 0f);
+        public bool IsShooting => !Mathf.Approximately(_pathCreator.ActiveDistanceLeft, 0f);
         
         private Transform _target;
         private BeamPathCreator _pathCreator;
@@ -67,7 +67,8 @@ namespace Features.PlayerLogic
             
             _colorPickerView.OnColorPicked -= OnColorPicked;
 
-            _pathCreator.DistanceLeft = 0f;
+            _pathCreator.TargetDistanceLeft = 0f;
+            _pathCreator.ActiveDistanceLeft = 0f;
             StopBeam();
         }
         

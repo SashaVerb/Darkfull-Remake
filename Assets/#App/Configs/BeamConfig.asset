@@ -13,17 +13,20 @@ MonoBehaviour:
   m_Name: BeamConfig
   m_EditorClassIdentifier: Assembly-CSharp::BeamConfig
   <SegmentPrefab>k__BackingField: {fileID: 315494857146531083, guid: e21f2e2735f9ca445ab7b73b3305aa46, type: 3}
-  <MaxDistance>k__BackingField: 10
+  <MaxDistance>k__BackingField: 5
   <Speed>k__BackingField: 30
   <RaycastMask>k__BackingField:
     serializedVersion: 2
-    m_Bits: 115
+    m_Bits: 371
   <ReflectableMask>k__BackingField:
     serializedVersion: 2
     m_Bits: 1
   <RefractableMask>k__BackingField:
     serializedVersion: 2
     m_Bits: 16
+  <DistanceExtenderMask>k__BackingField:
+    serializedVersion: 2
+    m_Bits: 256
   <IndicatorDetectionRadius>k__BackingField: 0.25
   <IndicatorLayerMask>k__BackingField:
     serializedVersion: 2

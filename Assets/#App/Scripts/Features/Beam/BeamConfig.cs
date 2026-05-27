@@ -16,6 +16,7 @@ public class BeamConfig : ScriptableObject
     [field: SerializeField] public LayerMask RaycastMask { get; private set; }
     [field: SerializeField] public LayerMask ReflectableMask { get; private set; }
     [field: SerializeField] public LayerMask RefractableMask { get; private set; }
+    [field: SerializeField] public LayerMask DistanceExtenderMask { get; private set; }
     
     [Header("Indicator Detection")]
     [field: SerializeField] public float IndicatorDetectionRadius { get; private set; }

@@ -1,13 +1,17 @@
+using LayerMaskExtensions;
 using System.Collections.Generic;
 using Features.Beam;
-using LayerMaskExtensions;
 using UnityEngine;
 
 public class BeamPathCreator
 {
-    public float DistanceLeft { get; set; }
+    public float TargetDistanceLeft { get; set; }
+    public float ActiveDistanceLeft { get; set; }
     
     private readonly BeamConfig _config;
+    
+    private HashSet<DistanceExtenderObject> _activeExtenders = new();
+    private HashSet<DistanceExtenderObject> _currentExtenders = new();
     
     public BeamPathCreator(BeamConfig config)
     {
@@ -18,6 +22,7 @@ public class BeamPathCreator
     {
         points ??= new List<BeamPathPoint>();
         points.Clear();
+        _currentExtenders.Clear();
         
         points.Add(new BeamPathPoint(startPoint));
 
@@ -26,33 +31,48 @@ public class BeamPathCreator
 
         if (isShooting)
         {
-            DistanceLeft += _config.Speed * Time.deltaTime;
+            float extenderBonus = 0f;
+            foreach (var ext in _activeExtenders)
+                extenderBonus += ext.BonusDistance;
+            TargetDistanceLeft = _config.MaxDistance + extenderBonus;
         }
         else
         {
-            DistanceLeft -= _config.Speed * Time.deltaTime;
+            TargetDistanceLeft = 0f;
+        }
+
+        if (!Mathf.Approximately(TargetDistanceLeft, ActiveDistanceLeft))
+        {
+            if (TargetDistanceLeft > ActiveDistanceLeft)
+            {
+                ActiveDistanceLeft += _config.Speed * Time.deltaTime;
+                ActiveDistanceLeft = Mathf.Min(TargetDistanceLeft, ActiveDistanceLeft);
+            }
+            else
+            {
+                ActiveDistanceLeft -= _config.Speed * Time.deltaTime;
+                ActiveDistanceLeft = Mathf.Max(TargetDistanceLeft, ActiveDistanceLeft);
+            }
         }
         
-        DistanceLeft = Mathf.Clamp(DistanceLeft, 0f, _config.MaxDistance);
-
-        float currenctDistanceLeft = DistanceLeft;
+        float currentDistanceLeft = ActiveDistanceLeft;
         
         float currentIOR = 1f;
 
-        while (currenctDistanceLeft > 0f)
+        while (currentDistanceLeft > 0f)
         {
             bool prevBackfaces = Physics.queriesHitBackfaces;
             Physics.queriesHitBackfaces = currentIOR > 1f;
 
             Ray ray = new Ray(currentOrigin + currentDirection * 0.01f, currentDirection);
-            bool didHit = Physics.Raycast(ray, out RaycastHit hit, currenctDistanceLeft, _config.RaycastMask.value);
+            bool didHit = Physics.Raycast(ray, out RaycastHit hit, currentDistanceLeft, _config.RaycastMask.value);
 
             Physics.queriesHitBackfaces = prevBackfaces;
 
             if (didHit)
             {
                 points.Add(new BeamPathPoint(hit.point, hit));
-                currenctDistanceLeft -= hit.distance;
+                currentDistanceLeft -= hit.distance;
 
                 if (_config.RefractableMask.Contains(hit.collider.gameObject) &&
                     hit.collider.TryGetComponent<RefractiveObject>(out var refractive))
@@ -65,6 +85,12 @@ public class BeamPathCreator
                     currentDirection = Refract(currentDirection, normal, eta);
                     currentIOR = entering ? refractive.IOR : 1f;
                 }
+                else if (_config.DistanceExtenderMask.Contains(hit.collider.gameObject) &&
+                         hit.collider.TryGetComponent<DistanceExtenderObject>(out var extender))
+                {
+                    _currentExtenders.Add(extender);
+                    currentOrigin = hit.point;
+                }
                 else if (_config.ReflectableMask.Contains(hit.collider.gameObject))
                 {
                     currentOrigin = hit.point;
@@ -72,16 +98,18 @@ public class BeamPathCreator
                 }
                 else
                 {
-                    DistanceLeft -= currenctDistanceLeft;
+                    TargetDistanceLeft -= currentDistanceLeft;
                     break;
                 }
             }
             else
             {
-                points.Add(new BeamPathPoint(currentOrigin + currentDirection * currenctDistanceLeft));
+                points.Add(new BeamPathPoint(currentOrigin + currentDirection * currentDistanceLeft));
                 break;
             }
         }
+
+        (_activeExtenders, _currentExtenders) = (_currentExtenders, _activeExtenders);
     }
     
     private static Vector3 Refract(Vector3 incident, Vector3 normal, float eta)
