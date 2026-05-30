@@ -18,6 +18,7 @@ namespace Features.PlayerLogic
         [SerializeField] private BeamColor _startColor;
         [SerializeField] private InputActionReference _shootAction;
         [SerializeField] private InputActionReference _showPickerAction;
+        [SerializeField] private InputActionReference _scrollAction;
         
         public bool IsEmiting => !Mathf.Approximately(_pathCreator.ActiveDistanceLeft, 0f);
 
@@ -25,6 +26,7 @@ namespace Features.PlayerLogic
 
         private Transform _target;
         private Transform _beamEnd;
+        private BeamConfig _config;
         private BeamPathCreator _pathCreator;
         private BeamIndicatorSystem _beamIndicatorSystem;
         private BeamColorSystem _beamColorSystem;
@@ -35,9 +37,10 @@ namespace Features.PlayerLogic
         private List<BeamColor> _pathColors = new();
         
         [Inject]
-        private void Configure(BeamPathCreator pathCreator, BeamIndicatorSystem beamIndicatorSystem, 
+        private void Configure(BeamConfig config, BeamPathCreator pathCreator, BeamIndicatorSystem beamIndicatorSystem, 
             BeamColorSystem beamColorSystem, BeamView view, [Key("Target")] Transform target, [Key("BeamEnd")] Transform beamEnd, BeamColorPickerView picker)
         {
+            _config = config;
             _pathCreator = pathCreator;
             _beamIndicatorSystem = beamIndicatorSystem;
             _beamColorSystem = beamColorSystem;
@@ -59,6 +62,7 @@ namespace Features.PlayerLogic
             _shootAction.action.canceled += OnShootCanceled;
             _showPickerAction.action.started += OnShowPickerPerformed;
             _showPickerAction.action.canceled += OnHidePickerPerformed;
+            _scrollAction.action.performed += OnScroll;
             
             _colorPickerView.OnColorPicked += OnColorPicked;
         }
@@ -69,6 +73,7 @@ namespace Features.PlayerLogic
             _shootAction.action.canceled -= OnShootCanceled;
             _showPickerAction.action.started -= OnShowPickerPerformed;
             _showPickerAction.action.canceled -= OnHidePickerPerformed;
+            _scrollAction.action.performed -= OnScroll;
             
             _colorPickerView.OnColorPicked -= OnColorPicked;
 
@@ -105,6 +110,15 @@ namespace Features.PlayerLogic
             _colorPickerView.Hide();
         }
         
+        private void OnScroll(InputAction.CallbackContext ctx)
+        {
+            float scrollY = ctx.ReadValue<Vector2>().y;
+            _pathCreator.DistanceReduce = Mathf.Clamp(
+                _pathCreator.DistanceReduce - Mathf.Sign(scrollY) * _config.ScrollStep,
+                0f,
+                _config.MaxDistance);
+        }
+
         private void OnShootStarted(InputAction.CallbackContext _) => StartBeam();
 
         private void StartBeam()

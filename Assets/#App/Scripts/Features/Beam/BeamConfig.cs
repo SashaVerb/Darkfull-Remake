@@ -13,6 +13,7 @@ public class BeamConfig : ScriptableObject
     [Header("Beam Physics")]
     [field: SerializeField] public float MaxDistance { get; private set; }
     [field: SerializeField] public float Speed { get; private set; }
+    [field: SerializeField] public float ScrollStep { get; private set; }
     [field: SerializeField] public LayerMask RaycastMask { get; private set; }
     [field: SerializeField] public LayerMask ReflectableMask { get; private set; }
     

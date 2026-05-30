@@ -7,7 +7,15 @@ public class BeamPathCreator
 {
     public float TargetDistanceLeft { get; set; }
     public float ActiveDistanceLeft { get; set; }
-  
+
+    public float DistanceReduce
+    {
+        get => _distanceReduce;
+        set => _distanceReduce = Mathf.Max(value, 0f);
+    }
+
+    private float _distanceReduce;
+    
     private readonly BeamConfig _config;
     
     private HashSet<DistanceExtenderObject> _activeExtenders = new();
@@ -34,7 +42,7 @@ public class BeamPathCreator
             float extenderBonus = 0f;
             foreach (var ext in _activeExtenders)
                 extenderBonus += ext.BonusDistance;
-            TargetDistanceLeft = _config.MaxDistance + extenderBonus;
+            TargetDistanceLeft = _config.MaxDistance + extenderBonus - DistanceReduce;
         }
         else
         {

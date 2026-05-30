@@ -2760,6 +2760,7 @@ MonoBehaviour:
   _startColor: 0
   _shootAction: {fileID: 1120369429361536294, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   _showPickerAction: {fileID: 7040659881675835329, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  _scrollAction: {fileID: -6883148067675176377, guid: 052faaac586de48259a63d0c4782560b, type: 3}
 --- !u!114 &3643705848624901901
 MonoBehaviour:
   m_ObjectHideFlags: 0
