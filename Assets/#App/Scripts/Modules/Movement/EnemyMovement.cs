@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -69,6 +70,11 @@ namespace KinematicCharacterController.Examples
             }
 
             _characterMovement.SetInputs(ref characterInputs);
+        }
+
+        private void OnDisable()
+        {
+            Stop();
         }
     }
 }

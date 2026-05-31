@@ -19,6 +19,11 @@ namespace _App.Scripts.Modules.Interactable
             _animator.SetBool(ActiveHash, false);
         }
 
+        public void Switch()
+        {
+            _animator.SetBool(ActiveHash, !_animator.GetBool(ActiveHash));
+        }
+        
         private void OnValidate()
         {
             _animator = GetComponent<Animator>();

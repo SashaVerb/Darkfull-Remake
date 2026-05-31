@@ -21,6 +21,7 @@ namespace _App.Scripts.Installers
         [SerializeField] private Transform _target;
         [SerializeField] private Transform _beamEnd;
         [SerializeField] private BeamColorPickerView _beamColorPickerView;
+        [SerializeField] private PlayerHealthView playerHealthView;
         [SerializeField] private KinematicCharacterMotor _motor;
         [SerializeField] private MonoBehaviour[] _pausableComponents;
         
@@ -39,6 +40,7 @@ namespace _App.Scripts.Installers
             builder.Register<BeamColorSystem>(Lifetime.Singleton);
             
             builder.RegisterUI(_beamColorPickerView);
+            builder.RegisterUI(playerHealthView);
             builder.RegisterInstance(_target).Keyed("Target");
             builder.RegisterInstance(_beamEnd).Keyed("BeamEnd");
             

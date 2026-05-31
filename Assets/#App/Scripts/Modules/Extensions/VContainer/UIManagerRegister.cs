@@ -43,8 +43,15 @@ namespace _App.Scripts.Modules.Extensions.VContainer
                 
                 return instance;
             }, Lifetime.Singleton).AsSelf().AsImplementedInterfaces();
-
+            
+            builder.RegisterBuildCallback(ForceCreateUI<T>);
+            
             return new UIRegistrationBuilder<T>(builder);
+        }
+
+        private static void ForceCreateUI<T>(IObjectResolver obj) where T : UIPanel
+        {
+            obj.Resolve<T>();
         }
     }
 }

@@ -11,6 +11,9 @@ namespace Modules.MouseFollower
         [SerializeField] private Collider _collider;
         [SerializeField] private InteractionContext _context;
         [SerializeField] private Collider _boundsCollider;
+        [SerializeField] private bool _freezeX;
+        [SerializeField] private bool _freezeY;
+        [SerializeField] private bool _freezeZ;
 
         private BeamShooter _beamShooter;
 
@@ -20,18 +23,19 @@ namespace Modules.MouseFollower
                 return;
             
             Vector3 destination = ApplyBounds(position);
+            destination = ApplyAxisFreeze(destination);
+            destination = ApplyAxisFreeze(destination);
 
             Physics.BoxCast(transform.position, _collider.bounds.extents, destination - transform.position,
                 out RaycastHit hitInfo, Quaternion.identity, (destination - transform.position).magnitude);
 
             if (hitInfo.collider != null)
             {
-                transform.position = hitInfo.point;
+                destination = hitInfo.point + (_collider.bounds.center - _collider.ClosestPoint(hitInfo.point));
             }
-            else
-            {
-                transform.position = destination;
-            }
+            
+            destination = ApplyAxisFreeze(destination);
+            transform.position = destination;
             Physics.SyncTransforms();
         }
         
@@ -59,6 +63,15 @@ namespace Modules.MouseFollower
                 return position;
 
             return _boundsCollider.ClosestPoint(position);
+        }
+
+        private Vector3 ApplyAxisFreeze(Vector3 position)
+        {
+            return new Vector3(
+                _freezeX ? transform.position.x : position.x,
+                _freezeY ? transform.position.y : position.y,
+                _freezeZ ? transform.position.z : position.z
+            );
         }
     }
 }

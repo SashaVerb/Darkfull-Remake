@@ -79,6 +79,7 @@ namespace Features.PlayerLogic
 
             _pathCreator.TargetDistanceLeft = 0f;
             _pathCreator.ActiveDistanceLeft = 0f;
+            _pathCreator.DistanceReduce = 0f;
             StopBeam();
         }
         

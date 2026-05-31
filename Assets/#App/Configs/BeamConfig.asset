@@ -31,7 +31,7 @@ MonoBehaviour:
   <DistanceExtenderMask>k__BackingField:
     serializedVersion: 2
     m_Bits: 256
-  <IndicatorDetectionRadius>k__BackingField: 0.5
+  <IndicatorDetectionRadius>k__BackingField: 0.1
   <IndicatorLayerMask>k__BackingField:
     serializedVersion: 2
     m_Bits: 576

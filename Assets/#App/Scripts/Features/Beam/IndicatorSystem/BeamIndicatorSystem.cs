@@ -21,29 +21,32 @@ public class BeamIndicatorSystem
     {
         _currentIndicators.Clear();
 
-        for (int pointIndex = 0; pointIndex < points.Count; pointIndex++)
+        if (points.Count > 1)
         {
-            BeamPathPoint point = points[pointIndex];
-            BeamColor currentColor = (colors != null && pointIndex < colors.Count) ? colors[pointIndex] : default;
-
-            int count = Physics.OverlapSphereNonAlloc(point.Position, _config.IndicatorDetectionRadius, _overlapBuffer, _config.IndicatorLayerMask);
-
-            for (int i = 0; i < count; i++)
+            for (int pointIndex = 0; pointIndex < points.Count; pointIndex++)
             {
-                if (_overlapBuffer[i].TryGetComponent(out Interactable indicator))
+                BeamPathPoint point = points[pointIndex];
+                BeamColor currentColor = (colors != null && pointIndex < colors.Count) ? colors[pointIndex] : default;
+
+                int count = Physics.OverlapSphereNonAlloc(point.Position, _config.IndicatorDetectionRadius, _overlapBuffer, _config.IndicatorLayerMask);
+
+                for (int i = 0; i < count; i++)
                 {
-                    if (colors != null && _overlapBuffer[i].TryGetComponent(out BeamColorFilter colorFilter))
+                    if (_overlapBuffer[i].TryGetComponent(out Interactable indicator))
                     {
-                        if (!colorFilter.AcceptsColor(currentColor))
-                            continue;
-                    }
+                        if (colors != null && _overlapBuffer[i].TryGetComponent(out BeamColorFilter colorFilter))
+                        {
+                            if (!colorFilter.AcceptsColor(currentColor))
+                                continue;
+                        }
 
-                    if (_currentIndicators.Add(indicator))
-                    {
-                        if (_overlapBuffer[i].TryGetComponent(out InteractionContext context))
-                            context.Provide(_resolver);
+                        if (_currentIndicators.Add(indicator))
+                        {
+                            if (_overlapBuffer[i].TryGetComponent(out InteractionContext context))
+                                context.Provide(_resolver);
 
-                        indicator.Activate();
+                            indicator.Activate();
+                        }
                     }
                 }
             }

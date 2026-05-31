@@ -8,22 +8,12 @@ namespace _App.Scripts.Features.Death
 
         private PlayerHealth _playerHealth;
 
-        private void Update()
-        {
-            if (_playerHealth != null)
-                _playerHealth.TakeDamage(_damagePerSecond * Time.deltaTime);
-        }
-
-        private void OnTriggerEnter(Collider other)
+        private void OnTriggerStay(Collider other)
         {
             if (other.TryGetComponent(out PlayerHealth health))
-                _playerHealth = health;
-        }
-
-        private void OnTriggerExit(Collider other)
-        {
-            if (other.TryGetComponent(out PlayerHealth health) && health == _playerHealth)
-                _playerHealth = null;
+            {
+                health.TakeDamage(_damagePerSecond * Time.deltaTime);
+            }
         }
     }
 }

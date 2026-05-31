@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -13,6 +12,7 @@ namespace _App.Scripts.Features.Death
         public bool IsDead { get; private set; } = false;
 
         public UnityEvent OnDeath;
+        public UnityEvent OnRevive;
         
         private float _timeSinceLastDamage;
 
@@ -63,6 +63,7 @@ namespace _App.Scripts.Features.Death
             IsDead = false;
             CurrentHp = MaxHp;
             _timeSinceLastDamage = 0f;
+            OnRevive.Invoke();
         }
     }
 }

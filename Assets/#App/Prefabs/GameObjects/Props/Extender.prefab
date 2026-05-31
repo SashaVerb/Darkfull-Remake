@@ -326,7 +326,7 @@ GameObject:
   - component: {fileID: 6241038055199272395}
   - component: {fileID: 6913063262560306894}
   - component: {fileID: 4099230400107733046}
-  - component: {fileID: 6078443778832455578}
+  - component: {fileID: 1184684364423632603}
   m_Layer: 8
   m_Name: Extender
   m_TagString: Untagged
@@ -378,8 +378,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Hovering
   height: 2
   duration: 3
---- !u!65 &6078443778832455578
-BoxCollider:
+--- !u!135 &1184684364423632603
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -397,5 +397,5 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Radius: 0.3
   m_Center: {x: 0, y: 0, z: 0}
