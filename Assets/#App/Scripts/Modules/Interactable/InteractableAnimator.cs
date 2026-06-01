@@ -14,7 +14,7 @@ namespace _App.Scripts.Modules.Interactable
             _animator.SetBool(ActiveHash, true);
         }
         
-        public void Deactivate()
+        public void Deactivate() 
         {
             _animator.SetBool(ActiveHash, false);
         }

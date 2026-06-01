@@ -38,6 +38,11 @@ public class BeamConfig : ScriptableObject
         return ColorBindings.Find(x => x.Color == color).Material;
     }
 
+    public Material GetPropsMaterialForColor(BeamColor color)
+    {
+        return ColorBindings.Find(x => x.Color == color).PropsMaterial;
+    }
+
     private void OnValidate()
     {
         if (ColorBindings == null)
@@ -45,7 +50,7 @@ public class BeamConfig : ScriptableObject
             ColorBindings = new List<ColorMaterialBinding>();
             foreach (BeamColor color in Enum.GetValues(typeof(BeamColor)))
             {
-                ColorBindings.Add(new ColorMaterialBinding(null, color));
+                ColorBindings.Add(new ColorMaterialBinding(null, color, null));
             }
         }
     }
@@ -55,11 +60,13 @@ public class BeamConfig : ScriptableObject
     {
         public Material Material;
         public BeamColor Color;
+        public Material PropsMaterial;
         
-        public ColorMaterialBinding(Material material, BeamColor color)
+        public ColorMaterialBinding(Material material, BeamColor color, Material propsMaterial)
         {
             Material = material;
             Color = color;
+            PropsMaterial = propsMaterial;
         }
     }
 }

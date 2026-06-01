@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c91ff1edb657b17408cdca1b30b8a246, type: 3}
   m_Name: ScaleAnimator
   m_EditorClassIdentifier: UIManagement::UIManagement.ScaleAnimator
-  _duration: 1
+  _duration: 0.2
   _curve:
     serializedVersion: 2
     m_Curve:

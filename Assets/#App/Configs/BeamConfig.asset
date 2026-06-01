@@ -18,13 +18,13 @@ MonoBehaviour:
   <ScrollStep>k__BackingField: 0.5
   <RaycastMask>k__BackingField:
     serializedVersion: 2
-    m_Bits: 883
+    m_Bits: 1907
   <ReflectableMask>k__BackingField:
     serializedVersion: 2
     m_Bits: 1
   <TransparentMask>k__BackingField:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 1536
   <RefractableMask>k__BackingField:
     serializedVersion: 2
     m_Bits: 16
@@ -39,9 +39,13 @@ MonoBehaviour:
   <ColorBindings>k__BackingField:
   - Material: {fileID: 2100000, guid: 02752aa4e662bca45a3e3005aad802b3, type: 2}
     Color: 0
+    PropsMaterial: {fileID: 2100000, guid: eb42043ce030bd64abb0a0f6dfc0e4fd, type: 2}
   - Material: {fileID: 2100000, guid: 2e15f127d91478a4cb73d0e39a765254, type: 2}
     Color: 1
+    PropsMaterial: {fileID: 2100000, guid: 1a63d72c6152ef54493960acf859fc4a, type: 2}
   - Material: {fileID: 2100000, guid: 6457db31f77ad7c48a61b439f15f382f, type: 2}
     Color: 2
+    PropsMaterial: {fileID: 2100000, guid: 7e04f706f9e3f7f468772566c9b75da8, type: 2}
   - Material: {fileID: 2100000, guid: 2bd27642e1c1cc649a5f34389106f920, type: 2}
     Color: 3
+    PropsMaterial: {fileID: 2100000, guid: 52e4708390753da4d9c262a4a102d958, type: 2}

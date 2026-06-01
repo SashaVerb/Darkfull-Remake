@@ -12,5 +12,13 @@ namespace Modules.Interactable
     
         public abstract void Activate();
         public abstract void Deactivate();
+
+        private void Awake()
+        {
+            if(IsActive)
+                Activate();
+            else
+                Deactivate();
+        }
     }
 }
