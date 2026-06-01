@@ -6,13 +6,15 @@ public class EnableStateEvents : MonoBehaviour
     public UnityEvent onEnable;
     public UnityEvent onDisable;
     
-    private void OnEnable()
+    public void Enable()
     {
+        Debug.Log("Enable");
         onEnable.Invoke();
     }
     
-    private void OnDisable()
+    public void Disable()
     {
+        Debug.Log("Disable");
         onDisable.Invoke();
     }
 }

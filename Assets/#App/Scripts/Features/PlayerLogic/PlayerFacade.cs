@@ -14,8 +14,9 @@ namespace Features.PlayerLogic
         private readonly PlayerHealth _playerHealth;
         private readonly GameObject _player;
         private readonly KinematicCharacterMotor _motor;
+        private readonly EnableStateEvents _enableStateEvents;
         private CancellationTokenSource _beamCts;
-
+        
         public bool IsActive
         {
             get => _player.activeSelf;
@@ -24,13 +25,14 @@ namespace Features.PlayerLogic
         
         public Vector3 Position => _player.transform.position;
         
-        public PlayerFacade(PlayerMovement movement, BeamShooter beamShooter, PlayerHealth playerHealth, KinematicCharacterMotor motor, GameObject player)
+        public PlayerFacade(PlayerMovement movement, BeamShooter beamShooter, PlayerHealth playerHealth, KinematicCharacterMotor motor, GameObject player, EnableStateEvents enableStateEvents)
         {
             _movement = movement;
             _beamShooter = beamShooter;
             _playerHealth = playerHealth;
             _motor = motor;
             _player = player;
+            _enableStateEvents = enableStateEvents;
         }
 
         public void Freeze()
@@ -49,12 +51,14 @@ namespace Features.PlayerLogic
         public void Disappear()
         {
             _player.SetActive(false);
+            _enableStateEvents.Disable();
         }
 
         public void Appear()
         {
             _player.SetActive(true);
             _playerHealth.Revive();
+            _enableStateEvents.Enable();
         }
 
         public void Kill()

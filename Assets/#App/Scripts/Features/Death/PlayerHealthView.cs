@@ -36,6 +36,8 @@ namespace _App.Scripts.Features.Death
                 _playerHealth.OnRevive.RemoveListener(Clear);
             
             _playerHealth = null;
+            
+            Destroy(gameObject);
         }
     }
 }

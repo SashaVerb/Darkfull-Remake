@@ -16,6 +16,8 @@ namespace _App.Scripts.Features.LevelLogic
             _playerFacade = playerFacade;
             _levelManager = levelManager;
             _playerSpawn = playerSpawn;
+            
+            _playerFacade.IsActive = false;
         }
 
         public override void OnEnter()
@@ -25,8 +27,6 @@ namespace _App.Scripts.Features.LevelLogic
 
         private async UniTaskVoid SpawnLogic()
         {
-            _playerFacade.IsActive = false;
-            
             await _levelManager.FadeIn();
 
             _playerFacade.IsActive = true;

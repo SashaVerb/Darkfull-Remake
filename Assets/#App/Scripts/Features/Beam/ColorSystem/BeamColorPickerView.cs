@@ -6,7 +6,7 @@ using UnityEngine.Events;
 
 namespace Features.Beam.ColorSystem
 {
-    public class BeamColorPickerView : UIPanel
+    public class BeamColorPickerView : UIPanel, IDisposable
     {
         public event Action<BeamColor> OnColorPicked;
 
@@ -65,6 +65,11 @@ namespace Features.Beam.ColorSystem
             public BeamColor Color;
 
             [NonSerialized] public UnityAction Action;
+        }
+
+        public void Dispose()
+        {
+            Destroy(gameObject);
         }
     }
 }

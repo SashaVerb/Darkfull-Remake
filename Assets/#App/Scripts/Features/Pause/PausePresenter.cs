@@ -81,6 +81,7 @@ namespace _App.Scripts.Features.Pause
 
         public void Dispose()
         {
+            Time.timeScale = 1f;
             _pauseAction.action.started -= TogglePause;
         }
     }

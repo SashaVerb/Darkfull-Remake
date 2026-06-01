@@ -129,7 +129,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1819225494}
   - component: {fileID: 1819225493}
-  - component: {fileID: 1819225495}
   m_Layer: 0
   m_Name: Music
   m_TagString: Untagged
@@ -249,14 +248,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!81 &1819225495
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1819225492}
-  m_Enabled: 1
 --- !u!1 &1991960003
 GameObject:
   m_ObjectHideFlags: 0
@@ -316,7 +307,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2096021205}
   - component: {fileID: 2096021204}
-  - component: {fileID: 2096021203}
   - component: {fileID: 2096021202}
   m_Layer: 0
   m_Name: Camera
@@ -369,14 +359,6 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
---- !u!81 &2096021203
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2096021201}
-  m_Enabled: 1
 --- !u!20 &2096021204
 Camera:
   m_ObjectHideFlags: 0

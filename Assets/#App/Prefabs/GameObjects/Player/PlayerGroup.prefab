@@ -1231,9 +1231,9 @@ MonoBehaviour:
   StableBrakingSharpness: 7
   OrientationSharpness: 0
   OrientationMethod: 1
-  MaxAirMoveSpeed: 10
+  MaxAirMoveSpeed: 9
   AirAccelerationSpeed: 5
-  Drag: 0.1
+  Drag: 0.5
   AllowJumpingWhenSliding: 0
   JumpUpSpeed: 10
   JumpScalableForwardSpeed: 0
@@ -1328,8 +1328,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::_App.Scripts.Features.Death.PlayerHealth
   <MaxHp>k__BackingField: 30
-  <RegenDelay>k__BackingField: 1
-  <RegenPerSecond>k__BackingField: 1
+  <RegenDelay>k__BackingField: 2
+  <RegenPerSecond>k__BackingField: 7
   OnDeath:
     m_PersistentCalls:
       m_Calls:
@@ -1474,6 +1474,7 @@ MonoBehaviour:
   _beamEnd: {fileID: 7231781467649182872}
   _beamColorPickerView: {fileID: 2159329521992204453, guid: 7ccc7a373d8a0cb46a1d50e1f17af669, type: 3}
   playerHealthView: {fileID: 5365501691855863060, guid: 8e0736215e0fc4a4c9f57f58b1fb0ca8, type: 3}
+  _enableStateEvents: {fileID: 3958432689316582421}
   _motor: {fileID: 6611360682564751779}
   _pausableComponents:
   - {fileID: 7303524183554285087}

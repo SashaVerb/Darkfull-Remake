@@ -22,6 +22,7 @@ namespace _App.Scripts.Installers
         [SerializeField] private Transform _beamEnd;
         [SerializeField] private BeamColorPickerView _beamColorPickerView;
         [SerializeField] private PlayerHealthView playerHealthView;
+        [SerializeField] private EnableStateEvents _enableStateEvents;
         [SerializeField] private KinematicCharacterMotor _motor;
         [SerializeField] private MonoBehaviour[] _pausableComponents;
         
@@ -47,6 +48,7 @@ namespace _App.Scripts.Installers
             builder.RegisterInstance(_playerMovement);
             builder.RegisterInstance(_playerHealth);
             builder.RegisterInstance(_motor);
+            builder.RegisterInstance(_enableStateEvents);
             builder.RegisterComponent(_beamShooter);
 
             builder.Register<IPausable, PausableComponents>(Lifetime.Scoped).WithParameter(_pausableComponents);

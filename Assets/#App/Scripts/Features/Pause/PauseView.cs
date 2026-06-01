@@ -49,6 +49,8 @@ namespace _App.Scripts.Features.Pause
         {
             _presenter.OnResume -= Hide;
             _presenter.OnPause -= Show;
+            
+            Destroy(gameObject);
         }
     }
 }
