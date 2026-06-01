@@ -66,7 +66,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a7ae9b5265347b04195ae99abc381dad, type: 2}
+  - {fileID: 2100000, guid: 02752aa4e662bca45a3e3005aad802b3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -132,7 +132,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6241038055199272395}
   - component: {fileID: 5351788440878088778}
-  - component: {fileID: 4099230400107733046}
   - component: {fileID: 5435522861829677143}
   m_Layer: 8
   m_Name: LightFilter
@@ -170,21 +169,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Features.Beam.ColorSystem.BeamColorChanger
   <Color>k__BackingField: 0
-  _config: {fileID: 0}
---- !u!114 &4099230400107733046
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7933252760976875318}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c93916a2a38da146aacefbe5bf7a82c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Hovering
-  height: 0.1
-  duration: 3
+  _config: {fileID: 11400000, guid: 558449ab01082ea41a96b35a8f5a2fc6, type: 2}
 --- !u!65 &5435522861829677143
 BoxCollider:
   m_ObjectHideFlags: 0

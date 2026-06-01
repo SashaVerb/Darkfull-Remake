@@ -8,6 +8,8 @@ namespace Modules.MouseFollower
     [RequireComponent(typeof(InteractionContext))]
     public class BeamEndFollower : MonoBehaviour
     {
+        private static BeamEndFollower s_grabedInstance;
+        
         [SerializeField] private Collider _collider;
         [SerializeField] private InteractionContext _context;
         [SerializeField] private Collider _boundsCollider;
@@ -19,7 +21,7 @@ namespace Modules.MouseFollower
 
         private void UpdatePosition(Vector3 position)
         {
-            if (!_beamShooter.IsShooting)
+            if (!_beamShooter.IsShooting || s_grabedInstance != this)
                 return;
             
             Vector3 destination = ApplyBounds(position);
@@ -46,6 +48,8 @@ namespace Modules.MouseFollower
                 _context.ObjectResolver.TryResolve(out _beamShooter);
                 
                 _beamShooter.OnBeamPositionUpdated += UpdatePosition;
+                
+                s_grabedInstance = this;
             }
         }
 
@@ -54,6 +58,9 @@ namespace Modules.MouseFollower
             if(_beamShooter != null)
                 _beamShooter.OnBeamPositionUpdated -= UpdatePosition;
 
+            if(s_grabedInstance == this)
+                s_grabedInstance = null;
+            
             _beamShooter = null;
         }
 

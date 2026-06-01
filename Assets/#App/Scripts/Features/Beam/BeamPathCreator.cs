@@ -1,6 +1,7 @@
 using LayerMaskExtensions;
 using System.Collections.Generic;
 using Features.Beam;
+using Modules.MouseFollower;
 using UnityEngine;
 
 public class BeamPathCreator
@@ -20,6 +21,9 @@ public class BeamPathCreator
     
     private HashSet<DistanceExtenderObject> _activeExtenders = new();
     private HashSet<DistanceExtenderObject> _currentExtenders = new();
+
+    private BeamEndFollower _grabbedObject;
+    private bool _grabbedObjectDuringTick;
     
     public BeamPathCreator(BeamConfig config)
     {
@@ -66,7 +70,8 @@ public class BeamPathCreator
         float currentDistanceLeft = ActiveDistanceLeft;
         
         float currentIOR = 1f;
-
+        _grabbedObjectDuringTick = false;
+        
         while (currentDistanceLeft > 0f)
         {
             bool prevBackfaces = Physics.queriesHitBackfaces;
@@ -108,6 +113,20 @@ public class BeamPathCreator
                 {
                     currentOrigin = hit.point;
                 }
+                else if (_config.MovableMask.Contains(hit.collider.gameObject))
+                {
+                    if (hit.collider.TryGetComponent<BeamEndFollower>(out var newGrabbedObject))
+                    {
+                        _grabbedObjectDuringTick = true;
+                        
+                        if(_grabbedObject != null || newGrabbedObject == _grabbedObject)
+                            continue;
+
+                        _grabbedObject = newGrabbedObject;
+                        DistanceReduce = currentDistanceLeft;
+                        currentDistanceLeft = 0f;
+                    }
+                }
                 else
                 {
                     TargetDistanceLeft -= currentDistanceLeft;
@@ -122,6 +141,11 @@ public class BeamPathCreator
         }
 
         (_activeExtenders, _currentExtenders) = (_currentExtenders, _activeExtenders);
+
+        if (!_grabbedObjectDuringTick && _grabbedObject != null)
+        {
+            _grabbedObject = null;
+        }
     }
     
     private static Vector3 Refract(Vector3 incident, Vector3 normal, float eta)
