@@ -26,16 +26,33 @@ namespace Modules.MouseFollower
             
             Vector3 destination = ApplyBounds(position);
             destination = ApplyAxisFreeze(destination);
-            destination = ApplyAxisFreeze(destination);
 
-            Physics.BoxCast(transform.position, _collider.bounds.extents, destination - transform.position,
-                out RaycastHit hitInfo, Quaternion.identity, (destination - transform.position).magnitude);
+            Vector3 moveDir = destination - transform.position;
+            float moveDist = moveDir.magnitude;
 
-            if (hitInfo.collider != null)
+            if (moveDist > Mathf.Epsilon)
             {
-                destination = hitInfo.point + (_collider.bounds.center - _collider.ClosestPoint(hitInfo.point));
+                Vector3 dirNormalized = moveDir / moveDist;
+
+                RaycastHit[] hits = Physics.BoxCastAll(
+                    _collider.bounds.center,
+                    _collider.bounds.extents,
+                    dirNormalized,
+                    transform.rotation,
+                    moveDist,
+                    Physics.AllLayers,
+                    QueryTriggerInteraction.Collide);
+
+                float allowedDist = moveDist;
+                foreach (RaycastHit hit in hits)
+                {
+                    if (hit.collider != _collider && hit.distance > 0f && hit.distance < allowedDist)
+                        allowedDist = hit.distance;
+                }
+
+                destination = transform.position + dirNormalized * allowedDist;
             }
-            
+
             destination = ApplyAxisFreeze(destination);
             transform.position = destination;
             Physics.SyncTransforms();
@@ -43,6 +60,9 @@ namespace Modules.MouseFollower
         
         private void OnEnable()
         {
+            if(s_grabedInstance != null)
+                return;
+            
             if (_context.ObjectResolver != null)
             {
                 _context.ObjectResolver.TryResolve(out _beamShooter);
