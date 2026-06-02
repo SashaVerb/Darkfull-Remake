@@ -14,7 +14,8 @@ namespace Modules.Interactable.Progress
         [SerializeField] private Renderer[] _renderers;
 
         private Material[] _materials;
-
+        private Color _initialColor;
+        
         private void Awake()
         {
             _materials = _renderers.Select(renderer => renderer.material).ToArray();
@@ -26,6 +27,8 @@ namespace Modules.Interactable.Progress
                     material.EnableKeyword(EMISSION_TOGGLE_PROPERTY_NAME);
                 }
             }
+            
+            _initialColor = _materials[0].GetColor(EMISSION_PROPERTY_ID);
         }
 
         private void OnEnable()
@@ -41,7 +44,7 @@ namespace Modules.Interactable.Progress
 
         private void Apply(float progress)
         {
-            var lerpedColor = Color.Lerp(Color.black, _emissionColor, progress);
+            var lerpedColor = Color.Lerp(_initialColor, _emissionColor, progress);
             
             foreach (var material in _materials)
             {

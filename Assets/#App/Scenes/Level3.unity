@@ -1380,11 +1380,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8653457647235807748, guid: d6cf702aac503bd429fc9d59eb697ecb, type: 3}
       propertyPath: <OnActivate>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Switch
+      value: Activate
       objectReference: {fileID: 0}
     - target: {fileID: 8653457647235807748, guid: d6cf702aac503bd429fc9d59eb697ecb, type: 3}
       propertyPath: <OnActivate>k__BackingField.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: Activate
+      value: Switch
       objectReference: {fileID: 0}
     - target: {fileID: 8653457647235807748, guid: d6cf702aac503bd429fc9d59eb697ecb, type: 3}
       propertyPath: <OnDeactivate>k__BackingField.m_PersistentCalls.m_Calls.Array.data[1].m_CallState

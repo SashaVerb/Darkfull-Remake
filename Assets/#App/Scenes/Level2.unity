@@ -1545,6 +1545,7 @@ MonoBehaviour:
   _interactables:
   - {fileID: 440743206}
   - {fileID: 150937433}
+  - {fileID: 1575820806}
 --- !u!1001 &527067979
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2867,6 +2868,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab5221fea30833c4e8da8be360a6f755, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Modules.Interactable.Progress.AccumulatingProgress
+--- !u!114 &1575820806 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1961300446691985599, guid: 283ac051c5cc30642a58374202784d0e, type: 3}
+  m_PrefabInstance: {fileID: 1575820803}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba5cfc16eb4f78240a3ea4638ba57766, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Modules.Interactable.InstantInteractable
 --- !u!4 &1633177665 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6241038055199272395, guid: 42a6ba4186a9ed34abf58997ef86ea60, type: 3}
