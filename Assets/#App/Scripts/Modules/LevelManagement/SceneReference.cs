@@ -9,7 +9,7 @@ namespace _App.Scripts.Modules.LevelManagement
 #if UNITY_EDITOR
         [SerializeField] private UnityEditor.SceneAsset _sceneAsset;
 #endif
-        private string _sceneName;
+        [SerializeField] private string _sceneName;
 
         public string Name => _sceneName;
 
