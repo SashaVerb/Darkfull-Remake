@@ -72,71 +72,76 @@ public class BeamPathCreator
         float currentIOR = 1f;
         _grabbedObjectDuringTick = false;
         
-        while (currentDistanceLeft > 0f)
+        if (!Physics.CheckSphere(currentOrigin, 0.001f, _config.RaycastMask.value, QueryTriggerInteraction.Ignore))
         {
-            bool prevBackfaces = Physics.queriesHitBackfaces;
-            Physics.queriesHitBackfaces = currentIOR > 1f;
-
-            Ray ray = new Ray(currentOrigin + currentDirection * 0.01f, currentDirection);
-            bool didHit = Physics.Raycast(ray, out RaycastHit hit, currentDistanceLeft, _config.RaycastMask.value);
-
-            Physics.queriesHitBackfaces = prevBackfaces;
-
-            if (didHit)
+            while (currentDistanceLeft > 0f)
             {
-                points.Add(new BeamPathPoint(hit.point, hit));
-                currentDistanceLeft -= hit.distance;
 
-                if (_config.RefractableMask.Contains(hit.collider.gameObject) &&
-                    hit.collider.TryGetComponent<RefractiveObject>(out var refractive))
-                {
-                    bool entering = Vector3.Dot(currentDirection, hit.normal) < 0;
-                    float eta = entering ? (currentIOR / refractive.IOR) : (refractive.IOR / 1f);
-                    Vector3 normal = entering ? hit.normal : -hit.normal;
 
-                    currentOrigin = hit.point;
-                    currentDirection = Refract(currentDirection, normal, eta);
-                    currentIOR = entering ? refractive.IOR : 1f;
-                }
-                else if (_config.DistanceExtenderMask.Contains(hit.collider.gameObject) &&
-                         hit.collider.TryGetComponent<DistanceExtenderObject>(out var extender))
+                bool prevBackfaces = Physics.queriesHitBackfaces;
+                Physics.queriesHitBackfaces = currentIOR > 1f;
+
+                Ray ray = new Ray(currentOrigin + currentDirection * 0.01f, currentDirection);
+                bool didHit = Physics.Raycast(ray, out RaycastHit hit, currentDistanceLeft, _config.RaycastMask.value);
+
+                Physics.queriesHitBackfaces = prevBackfaces;
+
+                if (didHit)
                 {
-                    _currentExtenders.Add(extender);
-                    currentOrigin = hit.point;
-                }
-                else if (_config.ReflectableMask.Contains(hit.collider.gameObject))
-                {
-                    currentOrigin = hit.point;
-                    currentDirection = Vector3.Reflect(currentDirection, hit.normal);
-                }
-                else if (_config.TransparentMask.Contains(hit.collider.gameObject))
-                {
-                    currentOrigin = hit.point;
-                }
-                else if (_config.MovableMask.Contains(hit.collider.gameObject))
-                {
-                    if (hit.collider.TryGetComponent<BeamEndFollower>(out var newGrabbedObject))
+                    points.Add(new BeamPathPoint(hit.point, hit));
+                    currentDistanceLeft -= hit.distance;
+
+                    if (_config.RefractableMask.Contains(hit.collider.gameObject) &&
+                        hit.collider.TryGetComponent<RefractiveObject>(out var refractive))
                     {
-                        _grabbedObjectDuringTick = true;
-                        
-                        if(_grabbedObject != null || newGrabbedObject == _grabbedObject)
-                            continue;
+                        bool entering = Vector3.Dot(currentDirection, hit.normal) < 0;
+                        float eta = entering ? (currentIOR / refractive.IOR) : (refractive.IOR / 1f);
+                        Vector3 normal = entering ? hit.normal : -hit.normal;
 
-                        _grabbedObject = newGrabbedObject;
-                        DistanceReduce = currentDistanceLeft;
-                        currentDistanceLeft = 0f;
+                        currentOrigin = hit.point;
+                        currentDirection = Refract(currentDirection, normal, eta);
+                        currentIOR = entering ? refractive.IOR : 1f;
+                    }
+                    else if (_config.DistanceExtenderMask.Contains(hit.collider.gameObject) &&
+                             hit.collider.TryGetComponent<DistanceExtenderObject>(out var extender))
+                    {
+                        _currentExtenders.Add(extender);
+                        currentOrigin = hit.point;
+                    }
+                    else if (_config.ReflectableMask.Contains(hit.collider.gameObject))
+                    {
+                        currentOrigin = hit.point;
+                        currentDirection = Vector3.Reflect(currentDirection, hit.normal);
+                    }
+                    else if (_config.TransparentMask.Contains(hit.collider.gameObject))
+                    {
+                        currentOrigin = hit.point;
+                    }
+                    else if (_config.MovableMask.Contains(hit.collider.gameObject))
+                    {
+                        if (hit.collider.TryGetComponent<BeamEndFollower>(out var newGrabbedObject))
+                        {
+                            _grabbedObjectDuringTick = true;
+
+                            if (_grabbedObject != null || newGrabbedObject == _grabbedObject)
+                                continue;
+
+                            _grabbedObject = newGrabbedObject;
+                            DistanceReduce = currentDistanceLeft;
+                            currentDistanceLeft = 0f;
+                        }
+                    }
+                    else
+                    {
+                        TargetDistanceLeft -= currentDistanceLeft;
+                        break;
                     }
                 }
                 else
                 {
-                    TargetDistanceLeft -= currentDistanceLeft;
+                    points.Add(new BeamPathPoint(currentOrigin + currentDirection * currentDistanceLeft));
                     break;
                 }
-            }
-            else
-            {
-                points.Add(new BeamPathPoint(currentOrigin + currentDirection * currentDistanceLeft));
-                break;
             }
         }
 
