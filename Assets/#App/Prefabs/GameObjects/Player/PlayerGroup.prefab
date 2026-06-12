@@ -1235,7 +1235,7 @@ MonoBehaviour:
   AirAccelerationSpeed: 5
   Drag: 0.5
   AllowJumpingWhenSliding: 0
-  JumpUpSpeed: 10
+  JumpUpSpeed: 11
   JumpScalableForwardSpeed: 0
   JumpPreGroundingGraceTime: 0
   JumpPostGroundingGraceTime: 0
